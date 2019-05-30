@@ -1,5 +1,5 @@
  <!-- history of transactions -->
- <div class="container">
+ <div (keydown)="undoUsingKeyPress($event)" class="container">
    <div class="row">
      <div class="col">
        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
@@ -9,22 +9,21 @@
              <div class="col-6 text-left">
                <button (click)="goBack()" class="btn btn-outline-info"><i class="far fa-hand-point-left">Go
                    Back</i></button>
-
              </div>
              <div class="col-6 text-right">
-               <button class="btn btn-outline-warning" (click)="undoAction()"><i
+               <button class="btn btn-outline-warning" [disabled]="multiHistory.length<2" (click)="undoAction()"><i
                    class="fas fa-undo-alt">Undo</i></button>
-
              </div>
            </div>
          </div>
-
-         <div *ngFor="let history of multiHistory" class="card-body">
-           <h4 class="btn badge badge-pill badge-success">{{history.createdOn |date:'medium'}}</h4>
-           <h5 class="card-title">
-             <li>{{history.remarks}}</li>
-           </h5>
-           <hr>
+         <div *ngIf="multiHistory.length>0">
+           <div *ngFor="let history of multiHistory" class="card-body">
+             <h4 class="btn badge badge-pill badge-success">{{history.createdOn |date:'medium'}}</h4>
+             <h5 class="card-title">
+               <li>{{history.remarks}}</li>
+             </h5>
+             <hr>
+           </div>
          </div>
        </div>
      </div>

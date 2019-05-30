@@ -48,20 +48,33 @@ export class MultiHistoryComponent implements OnInit {
 
   undoAction = () => {
     //obj to undo
-    const lastTrnObj = this.multiHistory[this.multiHistory.length-1];
-    let obj= {
+    const lastTrnObj = this.multiHistory[this.multiHistory.length - 1];
+    let obj = {
       transactionId: lastTrnObj.transactionId
     }
+    console.log(obj.transactionId)
     //api call
-    this.multiService.undoHistory(this.multiTodoId,obj).subscribe(
-      response=>{
+    this.multiService.undoHistory(this.multiTodoId, obj).subscribe(
+      response => {
         console.log(response)
         this.toastr.success(`Change undoed/reverted successfully`)
-        this.getMultiTodoTrn()
+        console.log(response.data)
+        this.multiHistory = response.data
       },
-      err=>{
+      err => {
         this.toastr.error(err.err.message)
       }
     )
+  }
+
+  //method to undo on keypress
+  //keyCode=90 is for z
+  public undoUsingKeyPress = (event: any) => {
+    if (event.keyCode === 17 && event.keyCode === 90) {
+      this.undoAction();
+    }
+    else if (event.cmd && event.keyCode === 90) {
+      this.undoAction()
+    }
   }
 }
