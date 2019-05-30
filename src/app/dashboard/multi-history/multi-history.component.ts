@@ -47,20 +47,21 @@ export class MultiHistoryComponent implements OnInit {
   }
 
   undoAction = () => {
-    //api to undo
+    //obj to undo
     const lastTrnObj = this.multiHistory[this.multiHistory.length-1];
-
-    //service call with obj
-
     let obj= {
-      multiTodoId: this.multiTodoId,
       transactionId: lastTrnObj.transactionId
-    };
-    //done notification
-
-
-    
-    //transactons
-    //error notification
+    }
+    //api call
+    this.multiService.undoHistory(this.multiTodoId,obj).subscribe(
+      response=>{
+        console.log(response)
+        this.toastr.success(`Change undoed/reverted successfully`)
+        this.getMultiTodoTrn()
+      },
+      err=>{
+        this.toastr.error(err.err.message)
+      }
+    )
   }
 }

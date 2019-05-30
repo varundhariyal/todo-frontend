@@ -45,7 +45,12 @@ export class MultiTodoService {
     return this.http.get(`${this.url}getMultiTodoTrn/${multiTodoId}`)
   }
 
-
+//method to undo/revert change
+public undoHistory(multiTodoId:any,obj:any):Observable<any>{
+  const params=new HttpParams()
+  .set('transactionId',obj.transactionId)
+  return this.http.post(`${this.url}undoHistory/${multiTodoId}`,params)
+}
 
 
   //http error handler
