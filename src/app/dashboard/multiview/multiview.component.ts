@@ -131,10 +131,27 @@ export class MultiviewComponent implements OnInit {
 
         },
         err => {
-          // this.toastr.error(err.err.message)
+          this.toastr.error(err.err.message)
         }
       )
     }
+  }
+
+  //method to delete a multi todo
+  public deleteMultiTodo=(multiTodoId)=>{
+    let obj={
+      multiTodoId:multiTodoId
+    }
+    this.multiTodoService.deleteMultiTodo(obj).subscribe(
+      response=>{
+        if(response.nModified==1){
+          this.toastr.success(`Multi Todo Deleted Successfully`)
+        }
+      },
+      err=>{
+        this.toastr.error(err.err.message)
+      }
+    )
   }
 
 }

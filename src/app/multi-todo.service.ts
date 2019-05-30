@@ -52,6 +52,12 @@ public undoHistory(multiTodoId:any,obj:any):Observable<any>{
   return this.http.post(`${this.url}undoHistory/${multiTodoId}`,params)
 }
 
+//method to delete a multi todo
+public deleteMultiTodo(obj:any):Observable<any>{
+  const params=new HttpParams()
+  .set('multiTodoId',obj.multiTodoId)
+  return this.http.post(`${this.url}deleteMultiTodo`,params)
+}
 
   //http error handler
   private handleError(err: HttpErrorResponse) {
