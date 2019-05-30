@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Location } from "@angular/common";
 import { MultiTodoService } from 'src/app/multi-todo.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,20 @@ export class MultiHistoryComponent implements OnInit {
   multiTodoId: string
   multiHistory: any = []
   constructor(private location: Location, private multiService: MultiTodoService, private _route: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
+  //use of host listener for targeting keypress on whole window
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log(event);
 
+    //for windows
+    if (event.ctrlKey && event.keyCode === 90) {
+      this.undoAction();
+    }
+    //for mac
+    if (event.metaKey && event.keyCode === 90) {
+      this.undoAction();
+    }
+  }
   ngOnInit() {
     this.multiTodoId = this._route.snapshot.paramMap.get('multiTodoId')
     this.getMultiTodoTrn()
@@ -65,16 +78,5 @@ export class MultiHistoryComponent implements OnInit {
         this.toastr.error(err.err.message)
       }
     )
-  }
-
-  //method to undo on keypress
-  //keyCode=90 is for z
-  public undoUsingKeyPress = (event: any) => {
-    if (event.keyCode === 17 && event.keyCode === 90) {
-      this.undoAction();
-    }
-    else if (event.cmd && event.keyCode === 90) {
-      this.undoAction()
-    }
   }
 }
