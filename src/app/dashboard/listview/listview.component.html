@@ -1,0 +1,95 @@
+<!-- navbar -->
+<nav class="fixed-top navbar navbar-expand-lg navbar-property">
+  <a class="navbar-brand" [routerLink]="[ '/dash']">LiveTo-Do</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">MultiUser</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- navbar end -->
+<div *ngIf="listTitle" class="jumbotron jumbotron-fluid" id="jumb-prop">
+  <div class="container jumb-padding">
+    <h1 class="display-4">List Name {{listTitle}}</h1>
+    <span class="badge badge-danger badge-pill">{{listCreatedOn |date}}</span>
+    <p class="lead">Go ahead and add some todos..</p>
+  </div>
+</div>
+<!-- jumbo end -->
+<div class="container search-box-margin">
+  <div id="top" class="row">
+    <div class="col text-center shadow p-3 mb-5 bg-white rounded">
+      <!-- todo list create input -->
+      <input [(ngModel)]="itemName" type="text" class="form-control text-center" placeholder="Add a todo...">
+      <br>
+      <button (click)="addItem()" class="btn btn-outline-success text-center"><i
+          class="fas fa-plus-circle">ADD</i></button>
+    </div>
+  </div>
+</div>
+<!-- create box end -->
+
+<!-- Item Box -->
+<div class="container text-center">
+  <div *ngFor="let list of myItemList" class="row">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+      <!-- checkbox -->
+      <div class="input-group input-group-lg">
+        <div class="">
+          <div class="input-group-text check">
+            <input (click)="itemCompleted(list.itemId)" class="" type="checkbox">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 *ngIf="edited!==list.itemId">{{list.itemName}}</h3>
+        <div [hidden]="showMe" *ngIf="edited=== list.itemId">
+          <input [(ngModel)]="editItemName" type="text">
+          <button (click)="editItem(list.itemId)" class="i-margin btn btn-outline-primary"><i class="fas fa-plus-circle">Edit
+              Todo</i></button>
+              <button (click)="showElement(list.ItemId)" class="i-margin btn btn-outline-primary">
+                  <i class="fas fa-times-circle"></i></button>
+        </div>
+
+        <!-- supplying showme=true for div hide/show using hidden property-->
+        <i (click)="handleView(list.itemId)" class="i-margin btn btn-outline-warning far fa-edit"></i>
+        <i (click)="deleteItem(list.itemId)" class="i-margin btn btn-outline-danger far fa-trash-alt"></i>
+      </div>
+      <span class="badge badge-primary badge-pill">{{list.createdOn |date}}</span>
+      <br>
+      <br>
+      <ul class="text-left list-group list-group-flush" *ngFor="let childList of list.children">
+        <li class="list-group-item">
+          <p class="lead">{{childList.subItemName}}
+            <button (click)="deleteSubItem(list.itemId,childList.subItemId)" type="button" class="close"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </p>
+          <span class="badge badge-secondary badge-pill">{{childList.createdOn|date}}</span>
+        </li>
+      </ul>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button (click)="addChildItem(list.itemId)" class="btn btn-outline-success" type="button"
+            id="button-addon1"><i class="fas fa-plus-circle">ADD SUBToDo</i></button>
+        </div>
+        <input [(ngModel)]="subItemName" type="text" class="form-control" placeholder="add a sub todo.."
+          aria-describedby="button-addon1">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="container text-center paddingTop">
+  <div class="row">
+    <div class="col">
+      <span>Enter Registered Email</span>
+
+      <label class="sr-only">Registered Email</label>
+
+      <input type="text" id="email" class="form-control" [(ngModel)]="Email" placeholder=" Registered Email"
+        required autofocus>
+        <br>
+        <button id="login" class="btn btn-lg btn-outline-danger btn-block" type="button"
+        (click)="sendMail()">Reset Password</button>
+    </div>
+  </div>
+</div>

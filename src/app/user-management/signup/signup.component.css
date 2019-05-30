@@ -1,0 +1,78 @@
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42A948;
+  /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442;
+  /* red */
+}
+
+.banner {
+  color: rgb(255, 255, 255);
+  background: url(/assets/banner.jpg);
+  height: 100vh;
+}
+.banner-heading{
+    padding-top: 100px;
+}
+.heightFixed {
+  padding: 70px 10px 10px 0;
+  height: 60px;
+}
+.banner-row{
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+.section-background {
+  padding: 50px;
+  
+}
+
+/* footer */
+.marginTop {
+  margin-top: 20vh;
+  background:  linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
+  color: rgb(255, 255, 255);
+}
+
+.paddingTopFromFooter {
+  padding: 6vh 0 6vh 0;
+}
+
+.footerImage {
+  width: 75px;
+  height: 75px;
+}
+
+.footerImageAlign {
+  text-align: center;
+}
+
+.footer-link a {
+  padding: 10px;
+  text-decoration: none;
+}
+
+.footer-link .svg1:hover {
+  background: #f04848;
+}
+
+.footer-link .svg2:hover {
+  background: rgba(24, 24, 240, 0.897);
+}
+
+.footer-link .svg3:hover {
+  background: #ffffff;
+}
+
+.footer-link .svg4:hover {
+  background: linear-gradient(red, yellow, orange)
+}
+
+.footer-link img {
+  width: 35px;
+  height: 35px;
+}

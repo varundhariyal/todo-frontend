@@ -1,0 +1,75 @@
+<!-- banner -->
+<div class="container-fluid jumbotron banner text-center">
+  <h1 class="display-4 banner-heading">LiveTo-Do</h1>
+  <hr class="my-4">
+  <div class="heightFixed">
+    <h2 class="typed display-4  text-uppercase"></h2>
+  </div>
+  <div class="row banner-row">
+    <div class="col">
+      <p class="lead text-uppercase">Upto Something?</p>
+      <p class="lead">Create A To-Do List now!!!</p>
+    </div>
+  </div>
+</div>
+<!-- login section -->
+<div class="container section-background border-0">
+  <div class="row">
+    <div class="col">
+      <span>Email </span>
+
+      <label class="sr-only">Email</label>
+
+      <input type="text" id="email" class="form-control" [(ngModel)]="Email" placeholder="Email"
+        required>
+      <br>
+
+      <span>Password </span>
+
+      <label class="sr-only">Password</label>
+
+      <input type="password" id='pass' class="form-control" [(ngModel)]="Password" placeholder="Password" required>
+
+      <br>
+      <button id="login" class="btn btn-lg btn-outline-danger btn-block" type="button"
+        (click)="login()">Login</button>
+       <a [routerLink]="[ '/forget']">Forgot Password?</a> 
+      <div class="text-center">
+        <a [routerLink]="[ '/signup']">Not a member yet?</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<div [ngsRevealSet]="{ reset:true}" [ngsInterval]="50" [ngsSelector]="'.item'">
+  <footer class="marginTop  text-center">
+    <div class="container-fluid paddingTopFromFooter">
+      <img src="/assets/varun.jpg" class="item img-fluid footerImage rounded-circle" alt="my image">
+      <div class="media-body">
+        <h5 class="item mt-0">Mean Stack Developer</h5>
+        <div class="footer-link item">
+          <span>
+            <a class="lead" href="mailto: varundhariyal@gmail.com"><img class="svg1" src="/assets/svg/gmail.png"
+                alt="gmail"></a>
+          </span>
+          <span>
+            <a class="lead" href="https://in.linkedin.com/in/varundhariyal"><img class="svg2"
+                src="/assets/svg/linkedin.png" alt="in"></a>
+          </span>
+          <span>
+            <a class="lead" href="https://github.com/varundhariyal"><img class="svg3" src="/assets/svg/git.svg"
+                alt="git"></a>
+          </span>
+          <span>
+            <a class="lead" href="https://www.instagram.com/poeticoder/"><img class="svg4" src="/assets/svg/insta.svg"
+                alt="insta"></a>
+          </span>
+        </div>
+        <p class="item lead text-uppercase">Drop me a line! I'll be happy to hear from you</p>
+        <br>
+        <span class="item tex-muted text-dark">Copyright © 2019 Varun Dhariyal</span>
+      </div>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,77 @@
+<nav class="fixed-top navbar navbar-expand-lg navbar-property">
+  <a class="navbar-brand" [routerLink]="[ '/dash']">LiveTo-Do</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Single User <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">MultiUser</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="jumbotron jumbotron-fluid" id="jumb-prop">
+  <div class="container jumb-padding">
+    <h1 class="display-4">Hello {{myName}}</h1>
+    <p class="lead">Add Multi User Todos</p>
+  </div>
+</div>
+<div class="container search-box-margin">
+  <div id="top" class="row">
+    <div class="col text-center shadow p-3 mb-5 bg-white rounded">
+      <!--add todo item create input -->
+      <input #Title='ngModel' [(ngModel)]="title" class="form-control mr-sm-2" type="text" placeholder="Add a todo"
+        required>
+      <br>
+      <button class="btn btn-outline-success my-2 my-sm-0" (click)="addTodoItem()" type="button"><i
+          class="fas fa-plus-circle">Add Todo</i></button>
+    </div>
+  </div>
+</div>
+<!-- todo item section-->
+<div class="container">
+  <div class="row justify-content-around ">
+    <div class="col-12 col-md-8 text-center" *ngFor="let todo of todoData">
+      <div class="todo-card card shadow-lg p-3 mb-5 bg-white rounded card-prop" >
+        <div class="card-body">
+          <h3 *ngIf="edited!==todo.multiTodoId">Todo task {{todo.title}}</h3>
+          <h3>Created By {{todo.creatorData.FirstName}} {{todo.creatorData.LastName}}</h3>
+          
+          <div *ngIf="todoTransactionData.length>0">
+            <div *ngIf="lastTransaction!==null||lastTransaction!==undefined||lastTransaction!==''">
+              <div *ngIf="lastTransaction.editorData!==null">
+                <h3>Edited By {{lastTransaction.editorData.FirstName}} {{lastTransaction.editorData.LastName}}</h3>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="edited==todo.multiTodoId" [hidden]="showMe">
+            <input [(ngModel)]="titleEdited" type="text">
+            <button (click)="editMultiTodo(todo.multiTodoId,todo.title)" class="i-margin btn btn-outline-primary"><i
+                class="fas fa-plus-circle">Edit
+                Todo</i></button>
+                <button (click)="showElement()" class="i-margin btn btn-outline-primary">
+                    <i class="fas fa-times-circle"></i></button>
+          </div>
+
+          <!-- supplying showme=true for div hide/show using hidden property-->
+          <button class="btn btn-outline-warning i-margin"> <i (click)="handleView(todo.multiTodoId)"
+              class="i-margin far fa-edit"></i></button>
+          <button class="btn btn-outline-danger i-margin"> <i (click)="deleteItem(list.itemId)"
+              class="i-margin  far fa-trash-alt"></i></button>
+          <button [routerLink]="[ '/multiview/history', todo.multiTodoId ]" class="btn btn-outline-primary i-margin"><i
+              class="i-margin fas fa-history"></i></button>
+          <br>
+          <span class="badge badge-primary badge-pill">{{todo.createdOn |date}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

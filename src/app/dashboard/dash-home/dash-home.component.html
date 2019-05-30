@@ -1,0 +1,60 @@
+<nav class="fixed-top navbar navbar-expand-lg navbar-property">
+  <a class="navbar-brand" [routerLink]="[ '/dash']">LiveTo-Do</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="[ '/multiview']">MultiUser</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="jumbotron jumbotron-fluid" id="jumb-prop">
+  <div class="container jumb-padding">
+    <h1 class="display-4">Hello {{myName}}</h1>
+    <p class="lead">Welcome to LiveTo-Do</p>
+  </div>
+</div>
+<div class="container text-center search-box-margin">
+  <div id="top" class="row">
+    <div class="col text-center shadow p-3 mb-5 bg-white rounded">
+      <!-- todo list create input -->
+      <input id="title" #title='ngModel' [(ngModel)]="listTitle" class="form-control mr-sm-2" type="text"
+        placeholder="Enter Name Of ToDo List" required>
+      <br>
+      <button class="btn btn-outline-success my-2 my-sm-0" (click)="createNewEmptyList()" type="button"><i
+          class="fas fa-plus-circle">Create a ToDO List</i></button>
+    </div>
+  </div>
+</div>
+<!-- todo list names section-->
+<div class="container">
+  <div *ngIf="allList" class="row">
+    <div *ngFor='let list of allList' class="col">
+      <div>
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded mx-auto text-center" style="width: 18rem;">
+          <a [routerLink]="[ '/listview', list.listId ]">
+            <div class="card-body">
+              <h5 class="card-title">{{list.listTitle}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{list.createdOn |date}}</h6>
+            </div>
+          </a>
+          <div class="text-center">
+              <button class="btn btn-outline-danger" (click)="deleteList(list.listId)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

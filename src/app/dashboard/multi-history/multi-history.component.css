@@ -1,0 +1,8 @@
+.container {
+  margin-top: 50px;
+}
+
+.card-header {
+  background: rgb(80, 77, 77);
+  color: rgb(255, 255, 255);
+}
