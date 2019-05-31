@@ -1,30 +1,37 @@
-.navbar-property{
-  color:whitesmoke;
+.navbar-property {
+  color: whitesmoke;
   background: rgb(36, 34, 34);
 }
-.navbar-property a{
-    color:whitesmoke;
-    text-decoration: none;
+
+.navbar-property a {
+  color: whitesmoke;
+  text-decoration: none;
 }
+
 /* burger style change */
-.navbar-property button{
-    background:whitesmoke;
-    text-decoration: none;
+.navbar-property button {
+  background: whitesmoke;
+  text-decoration: none;
 }
-.navbar-property span{
-    background: black;
+
+.navbar-property span {
+  background: black;
 }
+
 /* search box margin top */
-.search-box-margin{
-    margin-top: 70px;
+.search-box-margin {
+  margin-top: 70px;
 }
-#jumb-prop{
-    background: rgb(36, 34, 34);
-    color: antiquewhite;
+
+#jumb-prop {
+  background: rgb(36, 34, 34);
+  color: antiquewhite;
 }
-.jumb-padding{
-    padding-top: 20px;
+
+.jumb-padding {
+  padding-top: 20px;
 }
+
 /* end jumb-prop */
 /* card margin-top */
 .card {
@@ -34,4 +41,9 @@
 .card a {
   text-decoration: none;
   color: rgb(8, 8, 8);
+}
+
+.pagination{
+  width: 100%;
+  text-align: center;
 }

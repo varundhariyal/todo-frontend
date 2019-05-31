@@ -7,14 +7,17 @@
   </button>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="[ '/dash', userId ]">SingleUser</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">MultiUser</a>
+        <a class="nav-link" [routerLink]="[ '/multiview']">MultiUser</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-danger" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>
@@ -58,10 +61,11 @@
         <h3 *ngIf="edited!==list.itemId">{{list.itemName}}</h3>
         <div [hidden]="showMe" *ngIf="edited=== list.itemId">
           <input [(ngModel)]="editItemName" type="text">
-          <button (click)="editItem(list.itemId)" class="i-margin btn btn-outline-primary"><i class="fas fa-plus-circle">Edit
+          <button (click)="editItem(list.itemId)" class="i-margin btn btn-outline-primary"><i
+              class="fas fa-plus-circle">Edit
               Todo</i></button>
-              <button (click)="showElement(list.ItemId)" class="i-margin btn btn-outline-primary">
-                  <i class="fas fa-times-circle"></i></button>
+          <button (click)="showElement(list.ItemId)" class="i-margin btn btn-outline-primary">
+            <i class="fas fa-times-circle"></i></button>
         </div>
 
         <!-- supplying showme=true for div hide/show using hidden property-->
@@ -92,4 +96,14 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 col-12">
+      <pagination [totalItems]="150" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+  </div>
+
+  <pre class="card card-block card-header mb-3">
+    Page changed to: {{page}}
+  </pre>
+
 </div>

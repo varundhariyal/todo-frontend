@@ -6,14 +6,14 @@
   </button>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="[ '/multiview']">MultiUser</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-danger" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>
@@ -37,11 +37,10 @@
   </div>
 </div>
 <!-- todo list names section-->
-<div class="container">
+<div class="container-fluid">
   <div *ngIf="allList" class="row">
-    <div *ngFor='let list of allList' class="col">
-      <div>
-        <div class="card shadow-lg p-3 mb-5 bg-white rounded mx-auto text-center" style="width: 18rem;">
+    <div  class="col">
+        <div *ngFor='let list of allList' class="card shadow-lg p-3 mb-5 bg-white rounded mx-auto text-center" style="width: 18rem;">
           <a [routerLink]="[ '/listview', list.listId ]">
             <div class="card-body">
               <h5 class="card-title">{{list.listTitle}}</h5>
@@ -54,7 +53,11 @@
               </button>
               </div>
         </div>
-      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+     <pagination class="pagination" [totalItems]="50" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 </div>

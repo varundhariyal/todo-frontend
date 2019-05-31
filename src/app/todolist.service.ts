@@ -16,13 +16,13 @@ export class TodolistService {
   }
 
   //method to get lists of user logged in via userId
-  public getListOfLoggedInUser(userId): Observable<any> {
-    return this.http.get(`${this.url}getuserlist/${userId}`)
+  public getListOfLoggedInUser(userId,skip): Observable<any> {
+    return this.http.get(`${this.url}getuserlist/${userId}?skip=${skip}`)
   }
 
   //method to get particular list with listId
-  public getSingleList(listId): Observable<any> {
-    return this.http.get(`${this.url}getsinglelist/${listId}`)
+  public getSingleList(listId,skip): Observable<any> {
+    return this.http.get(`${this.url}getsinglelist/${listId}?skip=${skip}`)
   }
 
   //method to create new item in list

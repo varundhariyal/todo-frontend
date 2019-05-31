@@ -10,6 +10,15 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
   styleUrls: ['./listview.component.css']
 })
 export class ListviewComponent implements OnInit {
+  currentPage = 1;
+  page: number;
+  itmesPerPage: 5
+
+  pageChanged(event: any): void {
+    this.page = event.page;
+    let pageValue = (this.page - 1) * 5
+    this.getSingleList(pageValue)
+  }
   myName: string
   listTitle: string
   listCreatedOn: any
@@ -41,18 +50,18 @@ export class ListviewComponent implements OnInit {
     this.showMe = false
   }
   //method to show a div
-  showElement(itemId:string) {
-    this.edited=itemId
+  showElement(itemId: string) {
+    this.edited = itemId
     this.showMe = true;
   }
 
   //method to get particular list with listId
-  getSingleList = () => {
+  public getSingleList = (skip?: number) => {
     if (!this.listId) {
       this.toastr.error("Error Getting list:No list ID")
     }
     else {
-      this.todoservice.getSingleList(this.listId).subscribe(
+      this.todoservice.getSingleList(this.listId, skip).subscribe(
         response => {
           console.log(response)
           this.listTitle = response.data.listTitle

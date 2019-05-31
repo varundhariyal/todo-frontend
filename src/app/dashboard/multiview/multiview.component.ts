@@ -13,9 +13,12 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class MultiviewComponent implements OnInit {
   currentPage = 1;
   page: number;
- 
+  itmesPerPage: 5
+
   pageChanged(event: any): void {
     this.page = event.page;
+    let pageValue = (this.page - 1) * 5
+    this.getMultiTodo(pageValue)
   }
   title: string
   titleEdited: string //new todo title
@@ -26,7 +29,7 @@ export class MultiviewComponent implements OnInit {
   edited: string
   todoData: any = [] //array containing todo's info
   todoTransactionData: any = []
-  skip:number
+  skip: number = 0
   constructor(private multiTodoService: MultiTodoService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -45,13 +48,15 @@ export class MultiviewComponent implements OnInit {
   }
 
   //method to get all multiTodos
-  public getMultiTodo = () => {
+  public getMultiTodo = (skip?: number) => {
     console.log(this.userId)
     //  let data={
     //    userId:this.userId
     //  }
-    this.multiTodoService.getMultiTodo(this.userId,this.skip*5).subscribe(
+    this.multiTodoService.getMultiTodo(this.userId, skip).subscribe(
+
       response => {
+        console.log(skip)
         if (response !== null || response.status == 200) {
           console.log(response)
           this.todoData = response.data

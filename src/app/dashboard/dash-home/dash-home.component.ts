@@ -11,7 +11,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./dash-home.component.css']
 })
 export class DashHomeComponent implements OnInit {
+  currentPage = 1;
+  page: number;
+  itmesPerPage: 5
 
+  pageChanged(event: any): void {
+    this.page = event.page;
+    let pageValue = (this.page - 1) * 5
+    this.getAllListOfUser(pageValue)
+  }
   public myName: string
   public allList: any
   userId: string
@@ -28,8 +36,8 @@ export class DashHomeComponent implements OnInit {
     this.getAllListOfUser()
   }
   //method to get list of user by userId
-  getAllListOfUser = () => {
-    this.todoService.getListOfLoggedInUser(this.userId).subscribe(
+  getAllListOfUser = (skip?:number) => {
+    this.todoService.getListOfLoggedInUser(this.userId,skip).subscribe(
       response => {
         console.log(response)
         this.allList = response['data']
