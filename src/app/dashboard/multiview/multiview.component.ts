@@ -3,7 +3,7 @@ import { MultiTodoService } from 'src/app/multi-todo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { last } from '@angular/router/src/utils/collection';
+
 
 @Component({
   selector: 'app-multiview',
@@ -11,16 +11,12 @@ import { last } from '@angular/router/src/utils/collection';
   styleUrls: ['./multiview.component.css']
 })
 export class MultiviewComponent implements OnInit {
-
-  //pagination
-   //pagination
-   currentPage = 4;
-   page: number;
-  
-   pageChanged(event: any): void {
-     this.page = event.page;
-   }
-
+  currentPage = 1;
+  page: number;
+ 
+  pageChanged(event: any): void {
+    this.page = event.page;
+  }
   title: string
   titleEdited: string //new todo title
   userId: string
@@ -54,7 +50,7 @@ export class MultiviewComponent implements OnInit {
     //  let data={
     //    userId:this.userId
     //  }
-    this.multiTodoService.getMultiTodo(this.userId).subscribe(
+    this.multiTodoService.getMultiTodo(this.userId,).subscribe(
       response => {
         if (response !== null || response.status == 200) {
           console.log(response)

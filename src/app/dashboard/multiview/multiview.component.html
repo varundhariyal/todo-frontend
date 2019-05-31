@@ -66,13 +66,14 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-12">
-    <pagination [totalItems]="66" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+  <div class="row">
+    <div class="col-xs-12 col-12">
+      <pagination [totalItems]="150" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
   </div>
+   
+  <pre class="card card-block card-header mb-3">
+    Page changed to: {{page}}
+  </pre>
 </div>
- 
-<pre class="card card-block card-header mb-3">
-  Page changed to: {{page}}
-</pre>
+

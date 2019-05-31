@@ -9,6 +9,7 @@ import { UserHandleService } from '../user-handle.service';
 import { UserOnServerComponent } from './user-on-server/user-on-server.component';
 import { MultiviewComponent } from './multiview/multiview.component';
 import { MultiHistoryComponent } from './multi-history/multi-history.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MultiHistoryComponent } from './multi-history/multi-history.component';
   imports: [
     CommonModule,
     FormsModule,
+    PaginationModule.forRoot(),
     RouterModule.forChild([
       { path: 'dash/:userId', component: DashHomeComponent, pathMatch: 'full' },
       { path: 'listview/:listId', component: ListviewComponent, pathMatch: 'full' },
