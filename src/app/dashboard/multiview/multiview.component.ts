@@ -26,7 +26,7 @@ export class MultiviewComponent implements OnInit {
   edited: string
   todoData: any = [] //array containing todo's info
   todoTransactionData: any = []
-  lastTransaction: any = [] //array of last element/obj of todoTransactionData array
+  skip:number
   constructor(private multiTodoService: MultiTodoService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class MultiviewComponent implements OnInit {
     //  let data={
     //    userId:this.userId
     //  }
-    this.multiTodoService.getMultiTodo(this.userId,).subscribe(
+    this.multiTodoService.getMultiTodo(this.userId,this.skip*5).subscribe(
       response => {
         if (response !== null || response.status == 200) {
           console.log(response)
