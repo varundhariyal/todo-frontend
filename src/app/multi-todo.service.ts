@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class MultiTodoService {
-  private url = `http://api.livetodo.xyz/v1/multitodo/`
+  private url = `http://localhost:3306/api/v1/multitodo/`
   constructor(private http: HttpClient) { }
 
   //method to add todo item (multi todo)
@@ -41,23 +41,23 @@ export class MultiTodoService {
   }
 
   //method to get a multitodo transaction with trn id
-  public getMultiTodoTrn(multiTodoId: string): Observable<any> {
+  public getMultiTodoTrn(multiTodoId:string): Observable<any> {
     return this.http.get(`${this.url}getMultiTodoTrn/${multiTodoId}`)
   }
 
-  //method to undo/revert change
-  public undoHistory(multiTodoId: any, obj: any): Observable<any> {
-    const params = new HttpParams()
-      .set('transactionId', obj.transactionId)
-    return this.http.post(`${this.url}undoHistory/${multiTodoId}`, params)
-  }
+//method to undo/revert change
+public undoHistory(multiTodoId:any,obj:any):Observable<any>{
+  const params=new HttpParams()
+  .set('transactionId',obj.transactionId)
+  return this.http.post(`${this.url}undoHistory/${multiTodoId}`,params)
+}
 
-  //method to delete a multi todo
-  public deleteMultiTodo(obj: any): Observable<any> {
-    const params = new HttpParams()
-      .set('multiTodoId', obj.multiTodoId)
-    return this.http.post(`${this.url}deleteMultiTodo`, params)
-  }
+//method to delete a multi todo
+public deleteMultiTodo(obj:any):Observable<any>{
+  const params=new HttpParams()
+  .set('multiTodoId',obj.multiTodoId)
+  return this.http.post(`${this.url}deleteMultiTodo`,params)
+}
 
   //http error handler
   private handleError(err: HttpErrorResponse) {
