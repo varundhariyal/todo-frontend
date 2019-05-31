@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class TodolistService {
-  private url = `http://localhost:3306/api/v1/singletodo/`
+  private url = `http://api.livetodo.xyz/v1/singletodo/`
   constructor(private http: HttpClient) { }
 
   //method to create new empty list

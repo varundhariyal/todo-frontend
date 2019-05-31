@@ -20,7 +20,7 @@ export class MultiviewComponent implements OnInit {
   edited: string
   todoData: any = [] //array containing todo's info
   todoTransactionData: any = []
-  lastTransaction: any=[] //array of last element/obj of todoTransactionData array
+  lastTransaction: any = [] //array of last element/obj of todoTransactionData array
   constructor(private multiTodoService: MultiTodoService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -63,7 +63,7 @@ export class MultiviewComponent implements OnInit {
           this.todoTransactionData = response.data
           //to get only last element/obj of array pulled out a neat trick
           // this.lastTransaction=response.data.slice(-1)[0]
-          this.lastTransaction=this.todoTransactionData.slice(-1)[0]
+          this.lastTransaction = this.todoTransactionData.slice(-1)[0]
           console.log(this.lastTransaction)
         }
       },
@@ -138,17 +138,17 @@ export class MultiviewComponent implements OnInit {
   }
 
   //method to delete a multi todo
-  public deleteMultiTodo=(multiTodoId)=>{
-    let obj={
-      multiTodoId:multiTodoId
+  public deleteMultiTodo = (multiTodoId) => {
+    let obj = {
+      multiTodoId: multiTodoId
     }
     this.multiTodoService.deleteMultiTodo(obj).subscribe(
-      response=>{
-        if(response.nModified==1){
-          this.toastr.success(`Multi Todo Deleted Successfully`)
-        }
+      response => {
+        console.log(response)
+        this.toastr.success(`Multi Todo Deleted Successfully`)
+        this.getMultiTodo()
       },
-      err=>{
+      err => {
         this.toastr.error(err.err.message)
       }
     )

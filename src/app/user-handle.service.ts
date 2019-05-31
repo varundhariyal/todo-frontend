@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class UserHandleService {
 
-  private url = `http://localhost:3306/api/v1/users/`
+  private url = `http://api.livetodo.xyz/v1/users/`
 
   constructor(private http: HttpClient) { }
 

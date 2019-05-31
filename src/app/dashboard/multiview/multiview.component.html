@@ -42,16 +42,8 @@
     <div class="col-12 col-md-8 text-center" *ngFor="let todo of todoData">
       <div class="todo-card card shadow-lg p-3 mb-5 bg-white rounded card-prop" >
         <div class="card-body">
-          <h3 *ngIf="edited!==todo.multiTodoId">Todo task {{todo.title}}</h3>
-          <h3>Created By {{todo.creatorData.FirstName}} {{todo.creatorData.LastName}}</h3>
-          
-          <div *ngIf="todoTransactionData.length>0">
-            <div *ngIf="lastTransaction!==null||lastTransaction!==undefined||lastTransaction!==''">
-              <div *ngIf="lastTransaction.editorData!==null">
-                <h3>Edited By {{lastTransaction.editorData.FirstName}} {{lastTransaction.editorData.LastName}}</h3>
-              </div>
-            </div>
-          </div>
+          <h3 *ngIf="edited!==todo.multiTodoId">{{todo.title}}</h3>
+          <h3>Created By <span class="badge badge-warning">{{todo.creatorData.FirstName}} {{todo.creatorData.LastName}}</span></h3>
           <div *ngIf="edited==todo.multiTodoId" [hidden]="showMe">
             <input [(ngModel)]="titleEdited" type="text">
             <button (click)="editMultiTodo(todo.multiTodoId,todo.title)" class="i-margin btn btn-outline-primary"><i
