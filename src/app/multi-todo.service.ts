@@ -31,8 +31,8 @@ export class MultiTodoService {
   }
 
   //method to get all multi todo
-  public getMultiTodo(): Observable<any> {
-    return this.http.get(`${this.url}getAllMultiTodo`)
+  public getMultiTodo(data): Observable<any> {
+    return this.http.get(`${this.url}getAllMultiTodo?userId=${data}`)
   }
 
   //method to get a multitodo transaction

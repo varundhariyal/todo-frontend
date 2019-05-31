@@ -11,6 +11,16 @@ import { last } from '@angular/router/src/utils/collection';
   styleUrls: ['./multiview.component.css']
 })
 export class MultiviewComponent implements OnInit {
+
+  //pagination
+   //pagination
+   currentPage = 4;
+   page: number;
+  
+   pageChanged(event: any): void {
+     this.page = event.page;
+   }
+
   title: string
   titleEdited: string //new todo title
   userId: string
@@ -27,7 +37,6 @@ export class MultiviewComponent implements OnInit {
     this.userId = Cookie.get('userId')
     this.userName = Cookie.get('userName')
     this.getMultiTodo()
-    this.getMultiTodoTransaction()
   }
 
   //method to hide a div
@@ -41,7 +50,11 @@ export class MultiviewComponent implements OnInit {
 
   //method to get all multiTodos
   public getMultiTodo = () => {
-    this.multiTodoService.getMultiTodo().subscribe(
+    console.log(this.userId)
+    //  let data={
+    //    userId:this.userId
+    //  }
+    this.multiTodoService.getMultiTodo(this.userId).subscribe(
       response => {
         if (response !== null || response.status == 200) {
           console.log(response)
@@ -49,26 +62,7 @@ export class MultiviewComponent implements OnInit {
         }
       },
       err => {
-        this.toastr.error(err.err.message)
-      }
-    )
-  }
-
-  //method to get transaction
-  public getMultiTodoTransaction = () => {
-    this.multiTodoService.getMultiTodoTransaction().subscribe(
-      response => {
-        if (response !== null || response.status == 200) {
-          console.log(response)
-          this.todoTransactionData = response.data
-          //to get only last element/obj of array pulled out a neat trick
-          // this.lastTransaction=response.data.slice(-1)[0]
-          this.lastTransaction = this.todoTransactionData.slice(-1)[0]
-          console.log(this.lastTransaction)
-        }
-      },
-      err => {
-        this.toastr.error(err.err.message)
+        this.toastr.error(err.message)
       }
     )
   }
@@ -127,8 +121,6 @@ export class MultiviewComponent implements OnInit {
           this.titleEdited = "";
           this.showElement()
           this.getMultiTodo()
-          this.getMultiTodoTransaction()
-
         },
         err => {
           this.toastr.error(err.err.message)
@@ -139,19 +131,23 @@ export class MultiviewComponent implements OnInit {
 
   //method to delete a multi todo
   public deleteMultiTodo = (multiTodoId) => {
-    let obj = {
-      multiTodoId: multiTodoId
-    }
-    this.multiTodoService.deleteMultiTodo(obj).subscribe(
-      response => {
-        console.log(response)
-        this.toastr.success(`Multi Todo Deleted Successfully`)
-        this.getMultiTodo()
-      },
-      err => {
-        this.toastr.error(err.err.message)
+    if (confirm('Do you really want to delete this item?')) {
+
+      let obj = {
+        multiTodoId: multiTodoId
       }
-    )
+      this.multiTodoService.deleteMultiTodo(obj).subscribe(
+        response => {
+          console.log(response)
+          this.toastr.success(`Multi Todo Deleted Successfully`)
+          this.getMultiTodo()
+        },
+        err => {
+          this.toastr.error(err.err.message)
+        }
+      )
+    }
+
   }
 
 }

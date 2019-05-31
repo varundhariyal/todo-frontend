@@ -12,6 +12,7 @@ import { NgsRevealModule } from "ngx-scrollreveal";
 //import toastr module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { RouterModule } from '@angular/router';
 import { SignupComponent } from './user-management/signup/signup.component';
 import { UserManagementModule } from './user-management/user-management.module';
@@ -44,6 +45,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AppRoutingModule,
     HttpClientModule,
     NgsRevealModule,
+    PaginationModule.forRoot(),
     //loader imports
     NgxUiLoaderHttpModule,
     NgxUiLoaderRouterModule,
