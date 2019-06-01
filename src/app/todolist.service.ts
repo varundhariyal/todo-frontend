@@ -21,8 +21,8 @@ export class TodolistService {
   }
 
   //method to get particular list with listId
-  public getSingleList(listId,skip): Observable<any> {
-    return this.http.get(`${this.url}getsinglelist/${listId}?skip=${skip}`)
+  public getSingleList(listId): Observable<any> {
+    return this.http.get(`${this.url}getsinglelist/${listId}`)
   }
 
   //method to create new item in list

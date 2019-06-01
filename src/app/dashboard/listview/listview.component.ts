@@ -10,15 +10,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
   styleUrls: ['./listview.component.css']
 })
 export class ListviewComponent implements OnInit {
-  currentPage = 1;
-  page: number;
-  itmesPerPage: 5
-
-  pageChanged(event: any): void {
-    this.page = event.page;
-    let pageValue = (this.page - 1) * 5
-    this.getSingleList(pageValue)
-  }
+  userId:string
   myName: string
   listTitle: string
   listCreatedOn: any
@@ -41,6 +33,7 @@ export class ListviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userId=Cookie.get('userId')
     this.listId = this.route.snapshot.paramMap.get('listId')
     this.getSingleList()
   }
@@ -56,12 +49,12 @@ export class ListviewComponent implements OnInit {
   }
 
   //method to get particular list with listId
-  public getSingleList = (skip?: number) => {
+  public getSingleList = () => {
     if (!this.listId) {
       this.toastr.error("Error Getting list:No list ID")
     }
     else {
-      this.todoservice.getSingleList(this.listId, skip).subscribe(
+      this.todoservice.getSingleList(this.listId).subscribe(
         response => {
           console.log(response)
           this.listTitle = response.data.listTitle

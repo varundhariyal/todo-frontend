@@ -7,8 +7,6 @@ import { UserHandleService } from './user-handle.service';
 import { TodolistService } from './todolist.service';
 // httpclient
 import { HttpClientModule } from "@angular/common/http";
-//import scroll module
-import { NgsRevealModule } from "ngx-scrollreveal";
 //import toastr module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -44,7 +42,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DashboardModule,
     AppRoutingModule,
     HttpClientModule,
-    NgsRevealModule,
     PaginationModule.forRoot(),
     //loader imports
     NgxUiLoaderHttpModule,
