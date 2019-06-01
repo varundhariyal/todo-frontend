@@ -117,4 +117,19 @@ export class UserOnServerComponent implements OnInit {
       }
     )
   }
+
+  //logout method
+  public logout = () => {
+    this.UserService.logout(this.userId).subscribe(
+      response => {
+        if (response.status === 200) {
+          this.toastr.success('You are logged out!')
+        }
+      },
+      err => {
+        this.toastr.error(err.message)
+      }
+    )
+  }
+
 }

@@ -72,7 +72,11 @@ export class TodolistService {
     return this.http.post(`${this.url}isCompleted/${listId}/${itemId}`, params)
   }
 
-
+//method to logout
+public logout(userId):Observable<any>{
+  let data:any
+  return this.http.post(`${this.url}users/logout?userId=${userId}`,data)
+}
   //http error handler
   private handleError(err: HttpErrorResponse) {
 

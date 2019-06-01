@@ -59,6 +59,12 @@ public deleteMultiTodo(obj:any):Observable<any>{
   return this.http.post(`${this.url}deleteMultiTodo`,params)
 }
 
+//method to logout
+public logout(userId):Observable<any>{
+  let data:any
+  return this.http.post(`${this.url}users/logout?userId=${userId}`,data)
+}
+
   //http error handler
   private handleError(err: HttpErrorResponse) {
 

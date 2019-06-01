@@ -93,6 +93,12 @@ export class UserHandleService {
     return this.http.post(`${this.url}deleterequest/${senderId}`, data)
   }
 
+//method to logout
+public logout(userId):Observable<any>{
+  let data:any
+  return this.http.post(`${this.url}logout?userId=${userId}`,data)
+}
+
   private handleError(err: HttpErrorResponse) {
 
     let errorMessage = '';
