@@ -5,8 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { ForgetPassComponent } from './forget-pass/forget-pass.component';
 //forms module
 import { FormsModule } from "@angular/forms";
-//scrollmodule
-import { NgsRevealModule } from "ngx-scrollreveal";
 import { RouterModule } from '@angular/router';
 import { UserHandleService } from '../user-handle.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,7 +16,6 @@ import { DashboardModule } from '../dashboard/dashboard.module';
   imports: [
     CommonModule,
     FormsModule,
-    NgsRevealModule,
     HttpClientModule,
     DashboardModule,
     RouterModule.forChild([
