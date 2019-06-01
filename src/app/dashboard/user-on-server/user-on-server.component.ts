@@ -15,6 +15,7 @@ export class UserOnServerComponent implements OnInit {
   receiverId: string
   senderId = [] //array containing sender ids
   senderInfoArray = []
+  receiverInfoArray = []
   friendListArray = []
   constructor(private UserService: UserHandleService, private toastr: ToastrService, private router: Router) { }
 
@@ -45,7 +46,6 @@ export class UserOnServerComponent implements OnInit {
       response => {
         console.log(response)
         this.toastr.success("Friend Request Sent")
-        this.displayRequest()
       },
       err => {
         this.toastr.error(err.err.message)
@@ -69,6 +69,8 @@ export class UserOnServerComponent implements OnInit {
               //if status is changed to accepted push info to friend list array
               if (x.status == 'accepted') {
                 this.friendListArray.push(x.senderData)
+                 this.friendListArray.push(x.receiverData)
+                 this.friendListArray=this.friendListArray.filter(x=> x.userId!==this.userId)
               } else {
                 this.senderId.push(x.senderData.userId);
                 this.senderInfoArray.push(x.senderData);
@@ -84,6 +86,22 @@ export class UserOnServerComponent implements OnInit {
         }
       )
     }
+  }
+
+  //method to accept friend request and update friend list array
+  acceptFriendRequest = (sender: { userId: any; }) => {
+    let data = {
+      status: "accepted",
+    }
+    this.UserService.acceptRequest(this.userId, sender.userId, data).subscribe(
+      response => {
+        console.log(response)
+        //filter array elements,resultant array will not have sender details whose request is aacepted
+        //in senderInfoArray
+        this.senderInfoArray = this.senderInfoArray.filter(x => x !== sender);
+        this.friendListArray.push(sender);
+      }
+    )
   }
 
   //method to delete friend request
@@ -102,21 +120,7 @@ export class UserOnServerComponent implements OnInit {
       }
     )
   }
-  //method to accept friend request and update friend list array
-  acceptFriendRequest = (sender: { userId: any; }) => {
-    let data = {
-      status: "accepted",
-    }
-    this.UserService.acceptRequest(this.userId, sender.userId, data).subscribe(
-      response => {
-        console.log(response)
-        //filter array elements,resultant array will not have sender details whose request is aacepted
-        //in senderInfoArray
-        this.senderInfoArray = this.senderInfoArray.filter(x => x !== sender);
-        this.friendListArray.push(sender);
-      }
-    )
-  }
+
 
   //logout method
   public logout = () => {

@@ -39,25 +39,29 @@
 <!-- todo list names section-->
 <div class="container-fluid">
   <div *ngIf="allList" class="row">
-    <div  class="col">
-        <div *ngFor='let list of allList' class="card shadow-lg p-3 mb-5 bg-white rounded mx-auto text-center" style="width: 18rem;">
-          <a [routerLink]="[ '/listview', list.listId ]">
-            <div class="card-body">
-              <h5 class="card-title">{{list.listTitle}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{list.createdOn |date}}</h6>
-            </div>
-          </a>
-          <div class="text-center">
-              <button class="btn btn-outline-danger" (click)="deleteList(list.listId)">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-              </div>
+    <div class="col">
+      <div *ngFor='let list of allList' class="card shadow-lg p-3 mb-5 bg-white rounded mx-auto text-center"
+        style="width: 18rem;">
+        <a [routerLink]="[ '/listview', list.listId ]">
+          <div class="card-body">
+            <h5 class="card-title">{{list.listTitle}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{list.createdOn |date}}</h6>
+          </div>
+        </a>
+        <div class="text-center">
+          <button class="btn btn-outline-danger" (click)="deleteList(list.listId)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </div>
+      </div>
+
     </div>
   </div>
   <div class="row">
-    <div class="col">
-     <pagination class="pagination" [totalItems]="50" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <pagination [totalItems]="totalItems" [itemsPerPage]="itmesPerPage" [(ngModel)]="currentPage"
+        (pageChanged)="pageChanged($event)"></pagination>
+
     </div>
   </div>
 </div>

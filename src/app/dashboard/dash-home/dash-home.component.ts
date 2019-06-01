@@ -13,8 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DashHomeComponent implements OnInit {
   currentPage = 1;
   page: number;
-  itmesPerPage: 5
-
+  itmesPerPage= 5
+  totalItems:number;
   pageChanged(event: any): void {
     this.page = event.page;
     let pageValue = (this.page - 1) * 5
@@ -40,7 +40,8 @@ export class DashHomeComponent implements OnInit {
     this.todoService.getListOfLoggedInUser(this.userId, skip).subscribe(
       response => {
         console.log(response)
-        this.allList = response['data']
+        this.totalItems=response.data.totalItems;
+        this.allList = response['data'].fetchedList;
       }
     ) //end subscribe
   } //end getAllListOfUser

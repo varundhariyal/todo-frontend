@@ -76,8 +76,8 @@ export class UserHandleService {
   }
 
   //method to display friend requests
-  displayRequest(receiverId): Observable<any> {
-    return this.http.get(`${this.url}friendrequest/${receiverId}`)
+  displayRequest(userId): Observable<any> {
+    return this.http.get(`${this.url}friendrequest/?userId=${userId}`)
   }
 
   //method to accept friend request
