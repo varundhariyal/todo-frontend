@@ -159,7 +159,7 @@ export class MultiviewComponent implements OnInit {
       response => {
         if (response.status === 200) {
           console.log("logout called")
-          Cookie.delete('authtoken');
+          Cookie.delete('authToken');
 
           Cookie.delete('userId');
 
