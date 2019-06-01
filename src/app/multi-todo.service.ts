@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 })
 export class MultiTodoService {
   private url = `http://localhost:3306/api/v1/multitodo/`
+  private userUrl = `http://localhost:3306/api/v1/users/`
   constructor(private http: HttpClient) { }
 
   //method to add todo item (multi todo)
@@ -60,9 +61,10 @@ public deleteMultiTodo(obj:any):Observable<any>{
 }
 
 //method to logout
-public logout(userId):Observable<any>{
-  let data:any
-  return this.http.post(`${this.url}users/logout?userId=${userId}`,data)
+public logout(data):Observable<any>{
+  const params=new HttpParams()
+  .set('userId',data.userId)
+  return this.http.post(`${this.userUrl}logout`,params)
 }
 
   //http error handler

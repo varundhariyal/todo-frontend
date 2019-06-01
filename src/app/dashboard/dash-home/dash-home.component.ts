@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cookie } from "ng2-cookies/ng2-cookies";
 import { TodolistService } from 'src/app/todolist.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class DashHomeComponent implements OnInit {
   userId: string
   listTitle: any
 
-  constructor(private todoService: TodolistService, private toastr: ToastrService, private _route: ActivatedRoute) {
+  constructor(private todoService: TodolistService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) {
 
     this.myName = Cookie.get('userName') //fetch userNAme from Cookie
   }
@@ -36,8 +36,8 @@ export class DashHomeComponent implements OnInit {
     this.getAllListOfUser()
   }
   //method to get list of user by userId
-  getAllListOfUser = (skip?:number) => {
-    this.todoService.getListOfLoggedInUser(this.userId,skip).subscribe(
+  getAllListOfUser = (skip?: number) => {
+    this.todoService.getListOfLoggedInUser(this.userId, skip).subscribe(
       response => {
         console.log(response)
         this.allList = response['data']
@@ -47,38 +47,63 @@ export class DashHomeComponent implements OnInit {
 
   //method to create new empty list
   createNewEmptyList = () => {
-    if(this.listTitle==''||this.listTitle==null||this.listTitle==undefined){
+    if (this.listTitle == '' || this.listTitle == null || this.listTitle == undefined) {
       this.toastr.warning("Enter Title For The List")
     }
-    else{
-    let data = this.listTitle
-    this.todoService.newEmptyList(this.userId,data).subscribe(
+    else {
+      let data = this.listTitle
+      this.todoService.newEmptyList(this.userId, data).subscribe(
+        response => {
+          console.log(response)
+          this.toastr.success('New Empty List Created Successfully')
+          this.getAllListOfUser()
+        },
+        err => {
+          console.log(err)
+          this.toastr.error(`Error creating a new list ${err}`)
+        }
+      )
+    }
+  }//end createNewEmptyList
+
+  //delete a list
+  deleteList = (listId: any) => {
+    this.todoService.deleteList(listId).subscribe(
       response => {
         console.log(response)
-        this.toastr.success('New Empty List Created Successfully')
+        this.toastr.success("List deleted successfully")
         this.getAllListOfUser()
       },
       err => {
-        console.log(err)
-        this.toastr.error(`Error creating a new list ${err}`)
+        this.toastr.error(err.error.message)
       }
     )
-  } 
-  }//end createNewEmptyList
+  }  //end deleteList
 
-//delete a list
-deleteList = (listId: any) => {
-  this.todoService.deleteList(listId).subscribe(
-    response => {
-      console.log(response)
-      this.toastr.success("List deleted successfully")
-      this.getAllListOfUser()
-    },
-    err => {
-      this.toastr.error(err.error.message)
+  //logout method
+  public logout = () => {
+    let data = {
+      userId: this.userId
     }
-  )
-}  //end deleteList
+    this.todoService.logout(data).subscribe(
+      response => {
+        if (response.status === 200) {
+          console.log("logout called")
+          Cookie.delete('authtoken');
 
+          Cookie.delete('userId');
+
+          Cookie.delete('userName');
+
+          this.router.navigate(['/']);
+
+          this.toastr.success('You are logged out!')
+        }
+      },
+      err => {
+        this.toastr.error(err.message)
+      }
+    )
+  }
 
 }

@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 })
 export class TodolistService {
   private url = `http://localhost:3306/api/v1/singletodo/`
+  private userUrl = `http://localhost:3306/api/v1/users/`
   constructor(private http: HttpClient) { }
 
   //method to create new empty list
@@ -73,9 +74,10 @@ export class TodolistService {
   }
 
 //method to logout
-public logout(userId):Observable<any>{
-  let data:any
-  return this.http.post(`${this.url}users/logout?userId=${userId}`,data)
+public logout(data):Observable<any>{
+  const params=new HttpParams()
+  .set('userId',data.userId)
+  return this.http.post(`${this.userUrl}logout`,params)
 }
   //http error handler
   private handleError(err: HttpErrorResponse) {

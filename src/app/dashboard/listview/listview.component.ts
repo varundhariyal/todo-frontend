@@ -226,9 +226,21 @@ export class ListviewComponent implements OnInit {
 
   //logout method
   public logout = () => {
-    this.todoservice.logout(this.userId).subscribe(
+    let data={
+      userId:this.userId
+    }
+    this.todoservice.logout(data).subscribe(
       response => {
         if (response.status === 200) {
+          console.log("logout called")
+          Cookie.delete('authtoken');
+
+          Cookie.delete('userId');
+
+          Cookie.delete('userName');
+
+          this.router.navigate(['/']);
+
           this.toastr.success('You are logged out!')
         }
       },
