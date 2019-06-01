@@ -10,7 +10,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
   styleUrls: ['./listview.component.css']
 })
 export class ListviewComponent implements OnInit {
-  userId:string
+  userId: string
   myName: string
   listTitle: string
   listCreatedOn: any
@@ -33,7 +33,7 @@ export class ListviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userId=Cookie.get('userId')
+    this.userId = Cookie.get('userId')
     this.listId = this.route.snapshot.paramMap.get('listId')
     this.getSingleList()
   }
@@ -185,30 +185,6 @@ export class ListviewComponent implements OnInit {
       }
     )
   }
-
-
-  //method to edit subitem
-  editSubItem = () => {
-    if (this.editSubItemName == '' || this.editSubItemName == null || this.editSubItemName == undefined) {
-      this.toastr.warning('Enter An Todo Sub Item Name')
-    }
-    else {
-      let data = {
-        subItemName: this.editSubItemName
-      }
-      this.todoservice.editItem(this.listId, this.itemId, data).subscribe(
-        response => {
-          if (response.nModified == 1) { //if nModified=1 that means update in value
-            console.log(response)
-            this.toastr.success('ToDo Sub Item/Task Edited Successfully')
-          }
-        },
-        error => {
-          this.toastr.error(error.error.message)
-        }
-      )
-    }
-  } //end editItem
 
   //method to delete item from list with parameter itemId
   deleteItem = (itemId: any) => {

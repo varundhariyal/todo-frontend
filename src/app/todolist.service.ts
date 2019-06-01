@@ -16,7 +16,7 @@ export class TodolistService {
   }
 
   //method to get lists of user logged in via userId
-  public getListOfLoggedInUser(userId,skip): Observable<any> {
+  public getListOfLoggedInUser(userId, skip): Observable<any> {
     return this.http.get(`${this.url}getuserlist/${userId}?skip=${skip}`)
   }
 
@@ -44,13 +44,6 @@ export class TodolistService {
     const params = new HttpParams()
       .set('itemName', data.itemName)
     return this.http.post(`${this.url}edititem/${listId}/${itemId}`, params)
-  }
-
-  //method to edit subItemName
-  public editChildItem(listId, subItemId, data): Observable<any> {
-    const params = new HttpParams()
-      .set('subItemName', data.subItemName)
-    return this.http.post(`${this.url}editsubitem/${listId}/${subItemId}`, params)
   }
 
   //method to delete a list
