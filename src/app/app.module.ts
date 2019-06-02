@@ -18,22 +18,26 @@ import { FormsModule } from '@angular/forms';
 import { DashboardModule } from './dashboard/dashboard.module';
 
 //loader import and properties
-import { NgxUiLoaderModule,NgxUiLoaderRouterModule,NgxUiLoaderHttpModule, NgxUiLoaderConfig, SPINNER, POSITION, PB_DIRECTION } from 'ngx-ui-loader';
+import { NgxUiLoaderModule, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule, NgxUiLoaderConfig, SPINNER, POSITION, PB_DIRECTION } from 'ngx-ui-loader';
+import { NotFoundViewComponent } from './error-handler-view/not-found-view/not-found-view.component';
+import { ServerErrorViewComponent } from './error-handler-view/server-error-view/server-error-view.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  fgsColor:'red',
+  fgsColor: 'red',
   // logoUrl:'./assets/fav.png',
   fgsType: SPINNER.threeStrings, // foreground spinner type
   pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
   pbThickness: 10, // progress bar thickness
-  pbColor:'red'
+  pbColor: 'red'
 };
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundViewComponent,
+    ServerErrorViewComponent
   ],
   imports: [
     BrowserModule,
@@ -50,11 +54,16 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
-      {path:'',redirectTo:'signup',pathMatch:'full'},
-      {path:'signup',component:SignupComponent,pathMatch:'full'}
+      { path: '', redirectTo: 'signup', pathMatch: 'full' },
+      { path: 'signup', component: SignupComponent, pathMatch: 'full' },
+      { path: 'notfound', component: NotFoundViewComponent, pathMatch: 'full' },
+      { path: 'servererror', component: ServerErrorViewComponent, pathMatch: 'full' },
+      { path: '*', component: NotFoundViewComponent, pathMatch: 'full' },
+      { path: '**', component: NotFoundViewComponent, pathMatch: 'full' }
+
     ])
   ],
-  providers: [UserHandleService,TodolistService],
+  providers: [UserHandleService, TodolistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

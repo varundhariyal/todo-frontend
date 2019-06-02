@@ -11,7 +11,6 @@ import { MultiviewComponent } from './multiview/multiview.component';
 import { MultiHistoryComponent } from './multi-history/multi-history.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
-
 @NgModule({
   declarations: [DashHomeComponent, ListviewComponent, UserOnServerComponent, MultiviewComponent, MultiHistoryComponent],
   imports: [
@@ -23,8 +22,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
       { path: 'listview/:listId', component: ListviewComponent, pathMatch: 'full' },
       { path: 'multiview', component: MultiviewComponent, pathMatch: 'full' },
       { path: 'multiview/history/:multiTodoId', component: MultiHistoryComponent, pathMatch: 'full' },
-      { path: 'alluser', component: UserOnServerComponent, pathMatch: 'full' }
-
+      { path: 'alluser', component: UserOnServerComponent, pathMatch: 'full' },
     ])
   ],
   providers: [UserHandleService, TodolistService]

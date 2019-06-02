@@ -69,8 +69,8 @@ export class UserOnServerComponent implements OnInit {
               //if status is changed to accepted push info to friend list array
               if (x.status == 'accepted') {
                 this.friendListArray.push(x.senderData)
-                 this.friendListArray.push(x.receiverData)
-                 this.friendListArray=this.friendListArray.filter(x=> x.userId!==this.userId)
+                this.friendListArray.push(x.receiverData)
+                this.friendListArray = this.friendListArray.filter(x => x.userId !== this.userId)
               } else {
                 this.senderId.push(x.senderData.userId);
                 this.senderInfoArray.push(x.senderData);

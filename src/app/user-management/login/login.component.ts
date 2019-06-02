@@ -59,7 +59,8 @@ export class LoginComponent implements OnInit {
             Cookie.set('userId', response.data.userDetails.userId)
             Cookie.set('userName', response.data.userDetails.FirstName + ' ' + response.data.userDetails.LastName)
             this.UserService.setUserInfoInLocalStorage(response.data.userDetails) //userDetails saved in local storage
-            this.router.navigate(['/dash',response.data.userDetails.userId])
+            this.toastr.success('Login Success')
+            this.router.navigate(['/dash', response.data.userDetails.userId])
           }
           else {
             this.toastr.error(response.message)
@@ -67,8 +68,12 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.error.message) 
-
+          if (error.status == 404 || error.status == 400) {
+            this.toastr.error(error.error.message)
+          }
+          else if (error.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         }
       ) //end subscribe
     }

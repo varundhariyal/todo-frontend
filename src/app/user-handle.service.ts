@@ -81,7 +81,7 @@ export class UserHandleService {
   }
 
   //method to accept friend request
-  acceptRequest(receiverId,senderId, data): Observable<any> {
+  acceptRequest(receiverId, senderId, data): Observable<any> {
     const params = new HttpParams()
       .set('status', data.status)
     return this.http.post(`${this.url}acceptrequest/${receiverId}/${senderId}`, params)
@@ -93,12 +93,12 @@ export class UserHandleService {
     return this.http.post(`${this.url}deleterequest/${senderId}`, data)
   }
 
-//method to logout
-public logout(data):Observable<any>{
-  const params=new HttpParams()
-  .set('userId',data.userId)
-  return this.http.post(`${this.url}logout`,params)
-}
+  //method to logout
+  public logout(data): Observable<any> {
+    const params = new HttpParams()
+      .set('userId', data.userId)
+    return this.http.post(`${this.url}logout`, params)
+  }
   private handleError(err: HttpErrorResponse) {
 
     let errorMessage = '';
