@@ -10,13 +10,13 @@ import Typed from 'typed.js'
   styleUrls: ['./forget-pass.component.css']
 })
 export class ForgetPassComponent implements OnInit {
-Email: string
-Password: string
-  constructor(private router:Router,private UserService:UserHandleService,private toastr:ToastrService) { }
+  Email: string
+  Password: string
+  constructor(private router: Router, private UserService: UserHandleService, private toastr: ToastrService) { }
 
   ngOnInit() {
     var options = {
-      strings: ["Cook Dinner","Call Mom", "Get Groceries", "Pay Bill", "Attend Meeting"],
+      strings: ["Cook Dinner", "Call Mom", "Get Groceries", "Pay Bill", "Attend Meeting"],
       typeSpeed: 100,
       smartBackspace: true,
       // time before typing starts
@@ -37,36 +37,39 @@ Password: string
     //getting class name 'typed and passing object options
     var typed = new Typed(".typed", options);
   }
-ForgetPassword=()=>{
-  if(!this.Email){
-    this.toastr.warning("Enter Registered Mail")
-  }
-  else if(!this.Password){
-    this.toastr.warning('Set New Password')
-  }
-  else{
-    let data={
-      Email:this.Email,
-      Password:this.Password
+  ForgetPassword = () => {
+    if (!this.Email) {
+      this.toastr.warning("Enter Registered Mail")
     }
-    this.UserService.update(data).subscribe(
-      response=>{
-        if(response.data.nModified==1){
-          this.toastr.success("Password Changed Successfully")
-          this.router.navigate(['/login'])
-        }
-        else if(response.data.nModified==0){
-          this.toastr.error("No Password Reset")
-          this.router.navigate(['/setpassword'])
-        }
-        err=>{
+    else if (!this.Password) {
+      this.toastr.warning('Set New Password')
+    }
+    else {
+      let data = {
+        Email: this.Email,
+        Password: this.Password
+      }
+      this.UserService.update(data).subscribe(
+        response => {
+          if (response.data.nModified == 1) {
+            this.toastr.success("Password Changed Successfully")
+            this.router.navigate(['/login'])
+          }
+          else if (response.data.nModified == 0) {
+            this.toastr.error("No Password Reset")
+            this.router.navigate(['/setpassword'])
+          }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
+        },
+        err => {
           console.log(err)
           this.toastr.error(err.message)
         }
-      }
-    )//end subscribe
-  }
-} //end forgetpassword
+      )//end subscribe
+    }
+  } //end forgetpassword
 
 
 }

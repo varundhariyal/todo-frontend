@@ -13,15 +13,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DashHomeComponent implements OnInit {
   currentPage = 1;
   page: number;
-  itmesPerPage= 5
-  totalItems:number;
+  itmesPerPage = 5
+  totalItems: number;
   pageChanged(event: any): void {
     this.page = event.page;
     let pageValue = (this.page - 1) * 5
     this.getAllListOfUser(pageValue)
   }
-  public myName: string
-  public allList: any
+  myName: string
+  allList: any
   userId: string
   listTitle: any
 
@@ -40,8 +40,26 @@ export class DashHomeComponent implements OnInit {
     this.todoService.getListOfLoggedInUser(this.userId, skip).subscribe(
       response => {
         console.log(response)
-        this.totalItems=response.data.totalItems;
+        if(response.data == null){
+          this.allList=''
+        }
+        if (response.data !== null) {
+          this.totalItems = response.data.totalItems;
         this.allList = response['data'].fetchedList;
+        }
+        if (response.status === 404) {
+          this.toastr.info('Currently no todo list is created')
+        }
+        else if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
+      },
+      err => {
+        console.log(err)
+        this.toastr.error(`Error creating a new list ${err}`)
+        if (err.status == 500 || err.status == 0) {
+          this.router.navigate(['/servererror'])
+        }
       }
     ) //end subscribe
   } //end getAllListOfUser
@@ -58,25 +76,37 @@ export class DashHomeComponent implements OnInit {
           console.log(response)
           this.toastr.success('New Empty List Created Successfully')
           this.getAllListOfUser()
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         err => {
           console.log(err)
           this.toastr.error(`Error creating a new list ${err}`)
+          if (err.status == 500 || err.status == 0) {
+            this.router.navigate(['/servererror'])
+          }
         }
       )
     }
   }//end createNewEmptyList
 
   //delete a list
-  deleteList = (listId: any) => {
+ public deleteList = (listId: any) => {
     this.todoService.deleteList(listId).subscribe(
       response => {
         console.log(response)
         this.toastr.success("List deleted successfully")
         this.getAllListOfUser()
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       err => {
-        this.toastr.error(err.error.message)
+        this.toastr.error(err.message)
+        if (err.status == 500 || err.status == 0) {
+          this.router.navigate(['/servererror'])
+        }
       }
     )
   }  //end deleteList
@@ -100,9 +130,15 @@ export class DashHomeComponent implements OnInit {
 
           this.toastr.success('You are logged out!')
         }
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       err => {
         this.toastr.error(err.message)
+        if (err.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       }
     )
   }

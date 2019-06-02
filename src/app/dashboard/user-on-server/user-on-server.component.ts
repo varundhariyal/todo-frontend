@@ -46,6 +46,9 @@ export class UserOnServerComponent implements OnInit {
       response => {
         console.log(response)
         this.toastr.success("Friend Request Sent")
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       err => {
         this.toastr.error(err.err.message)
@@ -80,7 +83,11 @@ export class UserOnServerComponent implements OnInit {
           console.log(this.senderId)
           console.log(this.senderInfoArray)
           console.log(this.friendListArray)
-        },
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
+        }
+        ,
         err => {
           this.toastr.error(err.err.message)
         }
@@ -100,6 +107,12 @@ export class UserOnServerComponent implements OnInit {
         //in senderInfoArray
         this.senderInfoArray = this.senderInfoArray.filter(x => x !== sender);
         this.friendListArray.push(sender);
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
+      },
+      err => {
+        this.toastr.error(err.message)
       }
     )
   }
@@ -114,6 +127,9 @@ export class UserOnServerComponent implements OnInit {
         this.toastr.success(`Friend Request deleted successfully`)
 
         this.senderInfoArray = this.senderInfoArray.filter(x => x.userId !== senderId);
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       err => {
         this.toastr.error(err.err.message)

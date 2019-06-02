@@ -51,6 +51,9 @@ export class MultiHistoryComponent implements OnInit {
             this.multiHistory = response.data
             console.log(this.multiHistory)
           }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         err => {
           this.toastr.error(err.err.message)
@@ -76,13 +79,16 @@ export class MultiHistoryComponent implements OnInit {
           this.toastr.success(`Change undoed/reverted successfully`)
           console.log(response.data)
           this.multiHistory = response.data
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         err => {
           this.toastr.error(err.err.message)
         }
       )
     }
-    else{
+    else {
       this.toastr.info('Nothing to undo!');
     }
   }

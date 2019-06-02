@@ -75,9 +75,15 @@ export class ListviewComponent implements OnInit {
               }
             }
           }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         error => {
-          this.toastr.error(error.error.message)
+          this.toastr.error(error.message)
+          if (error.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
           console.log(error)
         }
       )
@@ -100,9 +106,15 @@ export class ListviewComponent implements OnInit {
             this.getSingleList()
 
           }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         error => {
-          this.toastr.error(error.error.message)
+          this.toastr.error(error.message)
+          if (error.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         }
       )
     }
@@ -125,9 +137,15 @@ export class ListviewComponent implements OnInit {
             this.toastr.success('Child Item/Sub ToDo created successfully')
             this.getSingleList()
           }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         error => {
-          this.toastr.error(error.error.message)
+          this.toastr.error(error.message)
+          if (error.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         }
       )
     }
@@ -159,9 +177,15 @@ export class ListviewComponent implements OnInit {
             this.toastr.success('ToDo Item/Task Edited Successfully')
             this.getSingleList()
           }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         error => {
-          this.toastr.error(error.error.message)
+          this.toastr.error(error.message)
+          if (error.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         }
       )
     }
@@ -179,9 +203,15 @@ export class ListviewComponent implements OnInit {
           this.toastr.success('Hurray Item ToDo Completed!')
           this.getSingleList()
         }
-        (err: { err: { message: string; }; }) => {
-          console.log(err.err.message)
-          this.toastr.error(err.err.message)
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
+      },
+      err => {
+        console.log(err.err.message)
+        this.toastr.error(err.message)
+        if (err.status == 500) {
+          this.router.navigate(['/servererror'])
         }
       }
     )
@@ -200,11 +230,15 @@ export class ListviewComponent implements OnInit {
           this.router.navigate(['/listview', this.listId])
           this.getSingleList()
         }, 1000);
-
-
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       error => {
-        this.toastr.error(error.error.message)
+        this.toastr.error(error.message)
+        if (error.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       }
     )
   } //end deleteitem
@@ -217,17 +251,23 @@ export class ListviewComponent implements OnInit {
         console.log(response)
         this.toastr.success('Sub Item Deleted Successfully')
         this.getSingleList()
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       error => {
-        this.toastr.error(error.error.message)
+        this.toastr.error(error.message)
+        if (error.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       }
     )
   } //end deleteSubItem
 
   //logout method
   public logout = () => {
-    let data={
-      userId:this.userId
+    let data = {
+      userId: this.userId
     }
     this.todoservice.logout(data).subscribe(
       response => {
@@ -246,6 +286,9 @@ export class ListviewComponent implements OnInit {
       },
       err => {
         this.toastr.error(err.message)
+        if (err.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       }
     )
   }

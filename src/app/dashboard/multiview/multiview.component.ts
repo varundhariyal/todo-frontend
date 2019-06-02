@@ -61,6 +61,9 @@ export class MultiviewComponent implements OnInit {
           console.log(response)
           this.todoData = response.data
         }
+        if (response.status == 500) {
+          this.router.navigate(['/servererror'])
+        }
       },
       err => {
         this.toastr.error(err.message)
@@ -86,9 +89,12 @@ export class MultiviewComponent implements OnInit {
             this.toastr.success('Todo created successfully')
             this.getMultiTodo()
           }
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         err => {
-          this.toastr.error(err.err.message)
+          this.toastr.error(err.message)
         }
       )
     }
@@ -122,9 +128,13 @@ export class MultiviewComponent implements OnInit {
           this.titleEdited = "";
           this.showElement()
           this.getMultiTodo()
-        },
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
+        }
+        ,
         err => {
-          this.toastr.error(err.err.message)
+          this.toastr.error(err.message)
         }
       )
     }
@@ -142,9 +152,12 @@ export class MultiviewComponent implements OnInit {
           console.log(response)
           this.toastr.success(`Multi Todo Deleted Successfully`)
           this.getMultiTodo()
+          if (response.status == 500) {
+            this.router.navigate(['/servererror'])
+          }
         },
         err => {
-          this.toastr.error(err.err.message)
+          this.toastr.error(err.message)
         }
       )
     }
