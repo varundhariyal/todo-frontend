@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap, catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { ObserveOnOperator } from 'rxjs/internal/operators/observeOn';
 
 
 @Injectable({
@@ -32,6 +33,14 @@ export class SocketService {
     }) //end observerable
   } //end verifyUser method
 
+  public friendNotification = (userId) => {
+    return Observable.create((observer) => {
+      this.socket.on(userId, (notification) => {
+        observer.next(notification);
+      }); //end Socket
+    }); //end Observable
+  }
+
 
   //events to be emitted
 
@@ -39,5 +48,9 @@ export class SocketService {
     this.socket.emit('set-user', (authToken))
   } //end setUser
 
+  public sendFriendReqeuestInfo = (senderInfo: any) => {
+    console.log(senderInfo);
+    this.socket.emit('friend-info', (senderInfo))
+  }
 
 }

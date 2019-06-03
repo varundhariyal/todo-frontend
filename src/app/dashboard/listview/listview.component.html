@@ -49,16 +49,18 @@
   <div *ngFor="let list of myItemList" class="row">
     <div class="col shadow p-3 mb-5 bg-white rounded">
       <!-- checkbox -->
-      <div class="input-group input-group-lg">
-        <div class="">
+      <div *ngIf="list.isCompleted===true" class="input-group input-group-lg">
+        <div>
           <div class="input-group-text check">
-            <input (click)="itemCompleted(list.itemId)" class="" type="checkbox">
+            <input  [disabled]='list.isCompleted==true' (click)="itemCompleted(list.itemId)" class="" type="checkbox">
           </div>
         </div>
       </div>
 
       <div>
+        <div [ngStyle]="{'text-decoration':list.isCompleted == true ? 'line-through' : 'none'}">
         <h3 *ngIf="edited!==list.itemId">{{list.itemName}}</h3>
+        </div>
         <div [hidden]="showMe" *ngIf="edited=== list.itemId">
           <input [(ngModel)]="editItemName" type="text">
           <button (click)="editItem(list.itemId)" class="i-margin btn btn-outline-primary"><i

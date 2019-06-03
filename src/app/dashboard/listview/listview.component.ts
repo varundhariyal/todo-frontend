@@ -61,20 +61,16 @@ export class ListviewComponent implements OnInit {
           this.listTitle = response.data.listTitle
           this.listCreatedOn = response.data.createdOn
           this.myItemList = response.data.children
+          console.log(this.myItemList)
           for (let x of response.data.children) {
-            this.completed.push(x.isCompleted) //push isCompleted values
-
-            console.log(this.completed)
-            console.log(this.myItemList)
-            for (x in this.completed) {
-              if (this.completed[x] == ["true"]) {
-                this.textDecorate = "line-through" //ngStyle expression
+            console.log(x)
+              if (x.isCompleted===true) {
+               this.textDecorate = "line-through" //ngStyle expression
               }
-              else if (this.completed[x] == [false]) {
-                this.textDecorate = "none"
-              }
-            }
-          }
+               else if ( x.isCompleted===false) {
+                 this.textDecorate = "none"
+               }
+             }
           if (response.status == 500) {
             this.router.navigate(['/servererror'])
           }

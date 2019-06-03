@@ -3,6 +3,7 @@ import { UserHandleService } from 'src/app/user-handle.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { SocketService } from 'src/app/socket.service';
 
 @Component({
   selector: 'app-user-on-server',
@@ -12,16 +13,18 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class UserOnServerComponent implements OnInit {
   users: any
   userId: string
+  userName: string
   receiverId: string
   senderId = [] //array containing sender ids
   senderInfoArray = []
   receiverInfoArray = []
   friendListArray = []
-  constructor(private UserService: UserHandleService, private toastr: ToastrService, private router: Router) { }
+  constructor(private UserService: UserHandleService, private socketService: SocketService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
 
     this.userId = Cookie.get('userId')
+    this.userName = Cookie.get('userName')
     this.UserService.getAllUsers().subscribe(
       response => {
         console.log(response)
@@ -46,12 +49,23 @@ export class UserOnServerComponent implements OnInit {
       response => {
         console.log(response)
         this.toastr.success("Friend Request Sent")
+        //sender info
+        let senderInfo = {
+          userName: this.userName,
+          senderId: response.data.senderId,
+          receiverId: response.data.receiverId,
+          sentOn: response.data.sentOn,
+          status: response.data.status
+        }
+        //sender info passed in socket service event 'friend-info'
+        this.socketService.sendFriendReqeuestInfo(senderInfo)
+        //server fail condtion
         if (response.status == 500) {
           this.router.navigate(['/servererror'])
         }
       },
       err => {
-        this.toastr.error(err.err.message)
+        this.toastr.error(err.message)
       }
     )
 
@@ -65,6 +79,7 @@ export class UserOnServerComponent implements OnInit {
     else {
       this.UserService.displayRequest(this.userId).subscribe(
         response => {
+          console.log('\n\n\nresponse')
           console.log(response)
           if (response.data != null) {
             for (let x of response.data) {
@@ -89,7 +104,7 @@ export class UserOnServerComponent implements OnInit {
         }
         ,
         err => {
-          this.toastr.error(err.err.message)
+          this.toastr.error(err.message)
         }
       )
     }
