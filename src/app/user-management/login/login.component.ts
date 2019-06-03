@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
             Cookie.set('userId', response.data.userDetails.userId)
             Cookie.set('userName', response.data.userDetails.FirstName + ' ' + response.data.userDetails.LastName)
             this.UserService.setUserInfoInLocalStorage(response.data.userDetails) //userDetails saved in local storage
-            this.toastr.success('Login Success')
             this.router.navigate(['/dash', response.data.userDetails.userId])
           }
           else {

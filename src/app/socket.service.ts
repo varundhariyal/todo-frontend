@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
 
 import { tap, catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -33,6 +33,8 @@ export class SocketService {
     }) //end observerable
   } //end verifyUser method
 
+
+  //socket for friend request sent notification
   public friendNotification = (userId) => {
     return Observable.create((observer) => {
       this.socket.on(userId, (notification) => {
@@ -40,6 +42,15 @@ export class SocketService {
       }); //end Socket
     }); //end Observable
   }
+
+ //socket for friend request accepted notification
+ public friendAcceptNotification=(userId)=>{
+   return Observable.create((observer)=>{
+     this.socket.on(userId,(notification)=>{
+       observer.next(notification)
+     })
+   })
+ }
 
 
   //events to be emitted
@@ -51,6 +62,11 @@ export class SocketService {
   public sendFriendReqeuestInfo = (senderInfo: any) => {
     console.log(senderInfo);
     this.socket.emit('friend-info', (senderInfo))
+  }
+
+  public sendFriendAcceptInfo=(receiverInfo:any)=>{
+    console.log(receiverInfo)
+    this.socket.emit('accept-request',(receiverInfo))
   }
 
 }

@@ -73,7 +73,7 @@ export class UserOnServerComponent implements OnInit {
 
   //method to display sender
   displayRequest = () => {
-    if (this.userId == null || this.userId == undefined || this.userId == '') {
+    if (this.userId === null || this.userId === undefined || this.userId === '') {
       this.toastr.error('No userId/cookie empty')
     }
     else {
@@ -81,17 +81,18 @@ export class UserOnServerComponent implements OnInit {
         response => {
           console.log('\n\n\nresponse')
           console.log(response)
-          if (response.data != null) {
+          if (response.data !== null) {
             for (let x of response.data) {
               console.log(x)
               //if status is changed to accepted push info to friend list array
-              if (x.status == 'accepted') {
+              if (x.status === 'accepted') {
                 this.friendListArray.push(x.senderData)
                 this.friendListArray.push(x.receiverData)
                 this.friendListArray = this.friendListArray.filter(x => x.userId !== this.userId)
               } else {
                 this.senderId.push(x.senderData.userId);
                 this.senderInfoArray.push(x.senderData);
+                this.senderInfoArray = this.senderInfoArray.filter(x => x.userId !== this.userId)
               }
             }
           }
@@ -111,18 +112,29 @@ export class UserOnServerComponent implements OnInit {
   }
 
   //method to accept friend request and update friend list array
-  acceptFriendRequest = (sender: { userId: any; }) => {
+  acceptFriendRequest = (sender: any) => {
     let data = {
       status: "accepted",
     }
     this.UserService.acceptRequest(this.userId, sender.userId, data).subscribe(
       response => {
         console.log(response)
+        console.log(sender)
         //filter array elements,resultant array will not have sender details whose request is aacepted
-        //in senderInfoArray
-        this.senderInfoArray = this.senderInfoArray.filter(x => x !== sender);
-        this.friendListArray.push(sender);
-        if (response.status == 500) {
+        if (response.status === 200) {
+          this.toastr.success(`Friend Request Accepted`)
+          this.senderInfoArray = this.senderInfoArray.filter(x => x !== sender);
+          this.friendListArray.push(sender);
+
+          //emit socket to notify user and set data
+          let receiverInfo = {
+            userName: this.userName,
+            senderId: sender.userId,
+          }
+          this.socketService.sendFriendAcceptInfo(receiverInfo)
+
+        }
+        else if (response.status == 500) {
           this.router.navigate(['/servererror'])
         }
       },
