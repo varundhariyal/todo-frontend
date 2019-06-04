@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class TodolistService {
-  private url = `http://localhost:3306/api/v1/singletodo/`
-  private userUrl = `http://localhost:3306/api/v1/users/`
+  private url = environment.baseUrl+`singletodo/`
   constructor(private http: HttpClient) { }
 
   //method to create new empty list
@@ -73,12 +73,6 @@ export class TodolistService {
     return this.http.post(`${this.url}isCompleted/${listId}/${itemId}`, params)
   }
 
-//method to logout
-public logout(data):Observable<any>{
-  const params=new HttpParams()
-  .set('userId',data.userId)
-  return this.http.post(`${this.userUrl}logout`,params)
-}
   //http error handler
   private handleError(err: HttpErrorResponse) {
 

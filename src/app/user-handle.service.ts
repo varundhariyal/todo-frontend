@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 // import observable
 import { Observable } from "rxjs";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserHandleService {
 
-  private url = `http://localhost:3306/api/v1/users/`
-  private authToken="";
+  private url = environment.baseUrl + 'users/';
+  private authToken = "";
   constructor(private http: HttpClient) { }
 
   //method to get user infom from local storage

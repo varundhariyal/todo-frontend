@@ -2,3 +2,20 @@
   background: rgb(36, 34, 34);
   color: antiquewhite;
 }
+
+.background {
+  background: black;
+}
+
+.card {
+  margin: 15px;
+}
+
+.hover-img:hover {
+  opacity: 0.5;
+  transition: 1.7s;
+}
+
+.style {
+  list-style: none;
+}

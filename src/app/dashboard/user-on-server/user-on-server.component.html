@@ -1,18 +1,18 @@
 <!-- navbar -->
-<nav-app></nav-app>
+<app-nav></app-nav>
 <!-- navbar end -->
-<div class="container text-center container-top">
-  <div *ngIf="users" class="row justify-content-around">
+<div class="container justify-content-around text-center container-top">
+  <div *ngIf="users" class="row">
     <div class="col-sm-12 col-md-6 col-lg-3">
       <span class="badge badge-pill badge-dark">
         <h5>All Users</h5>
       </span>
-      <div *ngIf="users.length==0" class="card" style="width: 18rem;">
+      <div *ngIf="users.length==0" class="card">
         <div class="card-body">
           <h5 class="card-title">No Users</h5>
         </div>
       </div>
-      <div *ngFor="let user of users" class="card" style="width: 18rem;">
+      <div *ngFor="let user of users" class="card">
         <div class="card-body">
           <h5 class="card-title">{{user.FirstName}} {{user.LastName}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Joined-{{user.CreatedOn|date}}</h6>
@@ -22,15 +22,30 @@
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3">
+        <span class="badge badge-pill badge-warning">
+          <h5>Pending Request</h5>
+        </span>
+        <div *ngIf="pendingReq.length==0" class="card">
+          <div class="card-body">
+            <h5 class="card-title">No pending request</h5>
+          </div>
+        </div>
+        <div *ngFor="let name of pendingReq" class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{name.FirstName}} {{name.LastName}}</h5>
+          </div>
+        </div>
+      </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
       <span class="badge badge-pill badge-danger">
         <h5>Friend Request</h5>
       </span>
-      <div *ngIf="senderInfoArray.length==0" class="card" style="width: 18rem;">
+      <div *ngIf="senderInfoArray.length==0" class="card">
         <div class="card-body">
           <h5 class="card-title">No friend request</h5>
         </div>
       </div>
-      <div *ngFor="let name of senderInfoArray" class="card" style="width: 18rem;">
+      <div *ngFor="let name of senderInfoArray" class="card">
         <div class="card-body">
           <h5 class="card-title">{{name.FirstName}} {{name.LastName}}</h5>
           <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -45,13 +60,13 @@
       <span class="badge badge-pill badge-primary">
         <h5>Friends</h5>
       </span>
-      <div *ngIf="friendListArray.length==0" class="card" style="width: 18rem;">
+      <div *ngIf="friendListArray.length==0" class="card">
         <div class="card-body">
           <h5 class="card-title">No friends to show</h5>
         </div>
       </div>
       <div *ngIf="friendListArray.length>0">
-        <div class="card" style="width: 18rem;" *ngFor="let friend of friendListArray" >
+        <div class="card" *ngFor="let friend of friendListArray" >
           <div class="card-title p-4">{{friend.FirstName}} {{friend.LastName}}</div>
         </div>
       </div>

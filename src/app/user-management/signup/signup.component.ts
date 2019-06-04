@@ -23,7 +23,6 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.code()
-    console.log(CountryCo["default"]);
     var options = {
       strings: ["Cook Dinner", "Call Mom", "Get Groceries", "Pay Bill", "Attend Meeting"],
       typeSpeed: 100,
@@ -107,13 +106,12 @@ export class SignupComponent implements OnInit {
           }
         },
         error => {
-          console.log(error)
           this.toastr.warning(error.error.message)
           if (error.status == 0 || error.status == 500 || error.error.status == 500) {
             this.route.navigate(['/servererror'])
           }
         }
       ) //end subscribe
-    }
+     }
   } //end signup method
 }

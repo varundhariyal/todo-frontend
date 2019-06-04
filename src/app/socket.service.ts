@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { tap, catchError } from "rxjs/operators";
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { ObserveOnOperator } from 'rxjs/internal/operators/observeOn';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
-  private url = 'http://localhost:3306';
+  private url = environment.socketUrl;
 
   private socket: any;
 
   constructor(private http: HttpClient) {
-    
+
   }
 
   //events to be listened
@@ -52,7 +52,7 @@ export class SocketService {
   public friendAcceptNotification = (userId) => {
     // this.socket.removeAllListeners(['fRAccept'+userId])
     return Observable.create((observer) => {
-      this.socket.on('fRAccept'+userId, (notification) => {
+      this.socket.on('fRAccept' + userId, (notification) => {
         observer.next(notification)
       })
     })

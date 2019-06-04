@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { SocketService } from 'src/app/socket.service';
+import { PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-user-on-server',
@@ -11,7 +12,7 @@ import { SocketService } from 'src/app/socket.service';
   styleUrls: ['./user-on-server.component.css']
 })
 export class UserOnServerComponent implements OnInit {
-  users: any
+  users = [];
   userId: string
   userName: string
   receiverId: string
@@ -19,24 +20,30 @@ export class UserOnServerComponent implements OnInit {
   senderInfoArray = []
   receiverInfoArray = []
   friendListArray = []
+  pendingReq = [];
   constructor(private UserService: UserHandleService, private socketService: SocketService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
 
     this.userId = Cookie.get('userId')
     this.userName = Cookie.get('userName')
+
+    this.displayRequest();
     this.UserService.getAllUsers().subscribe(
       response => {
-        console.log(response)
         this.users = response.data
         this.users = this.users.filter((x: { userId: any; }) => x.userId !== this.userId)
+
+        for (let p of this.friendListArray)
+          this.users = this.users.filter(x => x.userId !== p["userId"])
+
+        for (let p of this.pendingReq)
+          this.users = this.users.filter(x => x.userId !== p["userId"])
       },
       err => {
-        console.log(err.err.message)
         this.toastr.error(err.err.message)
       }
     )
-    this.displayRequest()
   }
 
   //method to send friend request
@@ -45,10 +52,16 @@ export class UserOnServerComponent implements OnInit {
       senderId: this.userId,
       receiverId: receiverId
     }
+
+    let x = this.users.find(x => x.userId === receiverId);
+    this.pendingReq.push(x);
+    this.users = this.users.filter(x => x.userId !== receiverId)
     this.UserService.sendRequest(data).subscribe(
       response => {
-        console.log(response)
         this.toastr.success("Friend Request Sent")
+
+        let x = this.users.find(x => x.userId === receiverId);
+        this.users = this.users.filter(x => x.userId !== receiverId)
         //sender info
         let senderInfo = {
           userName: this.userName,
@@ -79,26 +92,23 @@ export class UserOnServerComponent implements OnInit {
     else {
       this.UserService.displayRequest(this.userId).subscribe(
         response => {
-          console.log('\n\n\nresponse')
-          console.log(response)
           if (response.data !== null) {
             for (let x of response.data) {
-              console.log(x)
               //if status is changed to accepted push info to friend list array
               if (x.status === 'accepted') {
                 this.friendListArray.push(x.senderData)
                 this.friendListArray.push(x.receiverData)
                 this.friendListArray = this.friendListArray.filter(x => x.userId !== this.userId)
-              } else {
+              } else if (x.status === 'pending') {
+                if (this.userId !== x.receiverData.userId)
+                  this.pendingReq.push(x.receiverData)
+
                 this.senderId.push(x.senderData.userId);
                 this.senderInfoArray.push(x.senderData);
                 this.senderInfoArray = this.senderInfoArray.filter(x => x.userId !== this.userId)
               }
             }
           }
-          console.log(this.senderId)
-          console.log(this.senderInfoArray)
-          console.log(this.friendListArray)
           if (response.status == 500) {
             this.router.navigate(['/servererror'])
           }
@@ -118,8 +128,6 @@ export class UserOnServerComponent implements OnInit {
     }
     this.UserService.acceptRequest(this.userId, sender.userId, data).subscribe(
       response => {
-        console.log(response)
-        console.log(sender)
         //filter array elements,resultant array will not have sender details whose request is aacepted
         if (response.status === 200) {
           this.toastr.success(`Friend Request Accepted`)
@@ -150,7 +158,6 @@ export class UserOnServerComponent implements OnInit {
     this.UserService.deleteFriendRequest(senderId).subscribe(
       response => {
 
-        console.log(response)
         this.toastr.success(`Friend Request deleted successfully`)
 
         this.senderInfoArray = this.senderInfoArray.filter(x => x.userId !== senderId);

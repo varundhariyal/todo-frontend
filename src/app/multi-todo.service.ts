@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultiTodoService {
-  private url = `http://localhost:3306/api/v1/multitodo/`
-  private userUrl = `http://localhost:3306/api/v1/users/`
+  private url = environment+`multitodo/`
   constructor(private http: HttpClient) { }
 
   //method to add todo item (multi todo)
@@ -60,14 +60,7 @@ public deleteMultiTodo(obj:any):Observable<any>{
   return this.http.post(`${this.url}deleteMultiTodo`,params)
 }
 
-//method to logout
-public logout(data):Observable<any>{
-  const params=new HttpParams()
-  .set('userId',data.userId)
-  return this.http.post(`${this.userUrl}logout`,params)
-}
-
-  //http error handler
+ //http error handler
   private handleError(err: HttpErrorResponse) {
 
     let errorMessage = '';

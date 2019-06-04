@@ -35,7 +35,7 @@
       <span>Mobile: </span>
       <select aria-placeholder="Enter" [(ngModel)]="CountryCode" #countrycode="ngModel" name="country"
         class="form-control" id="countrycode" required>
-        <option value="Enter Country Code" disabled selected>Enter Country Code</option>
+        <option value="Enter Country Code" value='' disabled selected>Enter Country Code</option>
         <option *ngFor="let value of countries" [value]="value.name">{{value.code}}</option>
       </select>
       <label for="inputMobile" class="sr-only">Mobile</label>
@@ -43,7 +43,7 @@
      
           <div class="input-group">
               <div class="input-group-prepend">
-                  <div class="input-group-text">{{model.countryCode}}</div>
+                  <div class="input-group-text">{{CountryCode}}</div>
               </div>
               <input type="number" id="inputMobile" class="form-control" [(ngModel)]="MobileNumber" placeholder="Mobile"
               required>

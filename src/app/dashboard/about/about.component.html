@@ -1,72 +1,83 @@
-<app-nav></app-nav>
 <div class="jumbotron jumbotron-fluid" id="jumb-prop">
   <div class="container">
     <h1 class="display-4">About TODO</h1>
     <p class="lead">Overview of TODO Web App</p>
   </div>
 </div>
-<div class="card-columns">
-  <div class="card">
-    <img class="card-img-top" src="" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">User-Management</h5>
-      <p class="card-text">Signup- New account creation.
-        Login- User login.
-        Forgot Password- Password reset functionality.
-      </p>
+<div class="background">
+  <div class="card-columns">
+    <div class="card bg-warning">
+      <div class="card-body">
+        <h5 class="card-title">User-Management</h5>
+        <p class="card-text">Signup- New account creation.
+          Login- User login.
+          Forgot Password- Password reset functionality.
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <a class="hover-img" [routerLink]="[ '/alluser' ]"><img class="card-img-top" src="./assets/about/friend.png"
+          alt="Card image cap"></a>
+      <div class="card-body">
+        <h5 class="card-title">FriendZone</h5>
+        <p class="card-text">User can send friend request to other users on platform , friend request sent /received
+          /accepted notifications are reflected in real time handle via sockets.</p>
+      </div>
+    </div>
+    <div class="card">
+      <a class="hover-img" [routerLink]="[ '/dash',userId]"><img class="card-img-top" src="./assets/about/single.png"
+          alt="Card image cap"></a>
+      <div class="card-body">
+        <h5 class="card-title">SINGLE-USER-TODO</h5>
+        <p class="card-text">There is a dedicated section for performing crud operations over todos.User can
+          create/delete
+          a todo list add/edit/delete task and add/delete subtask to the list.</p>
+      </div>
+    </div>
+    <div class="card">
+      <a class="hover-img" [routerLink]="[ '/multiview']"><img class="card-img-top"
+          src="./assets/about/multihistory.png" alt="Card image cap"></a>
+      <div class="card-body">
+        <h5 class="card-title">MULTI-USER-TODO</h5>
+        <p class="card-text">Only friends can create/edit/delete todo task . Friends can edit other todo task under this
+          section and any friend can undo any number of change done in oast to that todo task via keyboard shortcut
+          key(ctrl+z/cmd+z) or via a dedicated undo button.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">ERROR-HANDLE</h5>
+        <p class="card-text">Also, all kind of errors, exceptions and
+          messages handled in TODO APP.</p>
+      </div>
     </div>
   </div>
-  <div class="card">
-    <img class="card-img-top" src=".../100px160/" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">FriendZone</h5>
-      <p class="card-text">User can send friend request to other users on platform , friend request sent /received
-        /accepted notifications are reflected in real time handle via sockets.</p>
+  <div class="card bg-danger text-center text-light">
+      <div class="card-body">
+        <h5 class="card-title display-4">TECH USED</h5>
+        <div class="card-text">
+          <ul class="lead style">
+           <h3>FRONTEND</h3>
+            <li>Angular</li>
+            <li>Bootstrap</li>
+          </ul>
+          <ul class="lead style"><h3>BACKEND</h3>
+            <li>NodeJS</li>
+            <li>Express.JS</li>
+            <li>Socket.io</li>
+            <li>RESTful API</li>
+          </ul>
+          <ul class="lead style"><h3>DATABASE</h3>
+            <li>mongoDB</li>
+          </ul>
+          <ul class="lead style"><h3>DEPLOYMENT</h3>
+            <li>AWS EC2</li>
+            <li>nginx</li>
+          </ul>
+          <ul class="lead style"><h3>VERSION CONTROL</h3>
+            <li>GIT</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src=".../100px160/" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">SINGLE-USER-TODO</h5>
-      <p class="card-text">There is a dedicated section for performing crud operations over todos.User can create/delete
-        a todo list add/edit/delete task and add/delete subtask to the list.</p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src=".../100px160/" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">MULTI-USER-TODO</h5>
-      <p class="card-text">Only friends can create/edit/delete todo task . Friends can edit other todo task under this
-        section and any friend can undo any number of change done in oast to that todo task via keyboard shortcut
-        key(ctrl+z/cmd+z) or via a dedicated undo button.</p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">TECH USED</h5>
-      <ul class="card-text">
-        <ul>FRONTEND
-        <li>Angular</li>
-        <li>Bootstrap</li>
-        </ul>
-        <ul>BACKEND
-        <li>NODEJS</li>
-        <li>EXPRESS.JS</li>
-        <li>Socket.io</li>
-        <li>RESTful API</li>
-        </ul>
-        <ul>DATABASE
-        <li>mongoDB</li>
-        </ul>
-        <ul>DEPLOYMENT
-        <li>AWS EC2</li>
-        <li>nginx</li>
-        </ul>
-        <ul>VERSION CONTROL
-        <li>GIT</li>
-        </ul>
-      </ul>
-    </div>
-  </div>
 </div>
