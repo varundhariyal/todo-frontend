@@ -163,32 +163,4 @@ export class UserOnServerComponent implements OnInit {
       }
     )
   }
-
-
-  //logout method
-  public logout = () => {
-    let data = {
-      userId: this.userId
-    }
-    this.UserService.logout(data).subscribe(
-      response => {
-        if (response.status === 200) {
-          console.log("logout called")
-          Cookie.delete('authToken');
-
-          Cookie.delete('userId');
-
-          Cookie.delete('userName');
-
-          this.router.navigate(['/']);
-
-          this.toastr.success('You are logged out!')
-        }
-      },
-      err => {
-        this.toastr.error(err.message)
-      }
-    )
-  }
-
 }

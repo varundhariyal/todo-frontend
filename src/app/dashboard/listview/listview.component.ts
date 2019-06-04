@@ -64,13 +64,13 @@ export class ListviewComponent implements OnInit {
           console.log(this.myItemList)
           for (let x of response.data.children) {
             console.log(x)
-              if (x.isCompleted===true) {
-               this.textDecorate = "line-through" //ngStyle expression
-              }
-               else if ( x.isCompleted===false) {
-                 this.textDecorate = "none"
-               }
-             }
+            if (x.isCompleted === true) {
+              this.textDecorate = "line-through" //ngStyle expression
+            }
+            else if (x.isCompleted === false) {
+              this.textDecorate = "none"
+            }
+          }
           if (response.status == 500) {
             this.router.navigate(['/servererror'])
           }
@@ -124,7 +124,7 @@ export class ListviewComponent implements OnInit {
       this.toastr.info('Enter An Todo Sub/Child Item')
     }
     else {
-      
+
       this.todoservice.addChildItem(this.listId, itemId, title.value).subscribe(
         response => {
           if (response.status == 200) {
@@ -258,34 +258,5 @@ export class ListviewComponent implements OnInit {
       }
     )
   } //end deleteSubItem
-
-  //logout method
-  public logout = () => {
-    let data = {
-      userId: this.userId
-    }
-    this.todoservice.logout(data).subscribe(
-      response => {
-        if (response.status === 200) {
-          console.log("logout called")
-          Cookie.delete('authToken');
-
-          Cookie.delete('userId');
-
-          Cookie.delete('userName');
-
-          this.router.navigate(['/']);
-
-          this.toastr.success('You are logged out!')
-        }
-      },
-      err => {
-        this.toastr.error(err.message)
-        if (err.status == 500) {
-          this.router.navigate(['/servererror'])
-        }
-      }
-    )
-  }
 
 }

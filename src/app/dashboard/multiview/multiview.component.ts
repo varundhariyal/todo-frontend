@@ -14,8 +14,8 @@ import { SocketService } from 'src/app/socket.service';
 export class MultiviewComponent implements OnInit {
   currentPage = 1;
   page: number;
-  itemsPerPage:number = 5
-  totalItems:number
+  itemsPerPage: number = 5
+  totalItems: number
 
   pageChanged(event: any): void {
     this.page = event.page;
@@ -32,7 +32,7 @@ export class MultiviewComponent implements OnInit {
   todoData: any = [] //array containing todo's info
   todoTransactionData: any = []
   skip: number = 0
-  constructor(private multiTodoService: MultiTodoService,private socketService:SocketService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
+  constructor(private multiTodoService: MultiTodoService, private socketService: SocketService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.userId = Cookie.get('userId')
@@ -64,7 +64,7 @@ export class MultiviewComponent implements OnInit {
         if (response !== null || response.status == 200) {
           console.log(response)
           this.todoData = response.data.multiTodoData
-          this.totalItems=response.data.totalItems
+          this.totalItems = response.data.totalItems
           console.log(this.totalItems)
         }
         if (response.status == 500) {
@@ -83,7 +83,7 @@ export class MultiviewComponent implements OnInit {
       this.toastr.warning('Please enter todo title')
     }
     else {
-      const remarks= `${this.userName} created a todo ${this.title}`;
+      const remarks = `${this.userName} created a todo ${this.title}`;
       let data = {
         title: this.title,
         isCompleted: false,
@@ -95,14 +95,14 @@ export class MultiviewComponent implements OnInit {
           if (response !== null || response.status == 200) {
             this.toastr.success('Todo created successfully')
             this.getMultiTodo()
-            
+
             //socket call
-            const obj={
+            const obj = {
               message: remarks,
-              senderId:this.userId
+              senderId: this.userId
             }
             this.socketService.sendMultiTodoInfo(obj)
-           
+
           }
           if (response.status == 500) {
             this.router.navigate(['/servererror'])
@@ -139,7 +139,7 @@ export class MultiviewComponent implements OnInit {
       }
       this.multiTodoService.editMultiTodo(data).subscribe(
         response => {
-          if(response.status === 200){
+          if (response.status === 200) {
 
             console.log(response)
             this.edited = "";
@@ -148,9 +148,9 @@ export class MultiviewComponent implements OnInit {
             this.getMultiTodo()
 
             //socket call
-            const obj={
+            const obj = {
               message: remarks,
-              senderId:this.userId
+              senderId: this.userId
             }
             this.socketService.sendMultiTodoInfo(obj)
           }
@@ -187,33 +187,6 @@ export class MultiviewComponent implements OnInit {
         }
       )
     }
-  }
-
-  //logout method
-  public logout = () => {
-    let data = {
-      userId: this.userId
-    }
-    this.multiTodoService.logout(data).subscribe(
-      response => {
-        console.log(response)
-        if (response.status === 200) {
-          console.log("logout called")
-          Cookie.delete('authToken');
-
-          Cookie.delete('userId');
-
-          Cookie.delete('userName');
-
-          this.router.navigate(['/']);
-
-          this.toastr.success('You are logged out!')
-        }
-      },
-      err => {
-        this.toastr.error(err.message)
-      }
-    )
   }
 
 }
