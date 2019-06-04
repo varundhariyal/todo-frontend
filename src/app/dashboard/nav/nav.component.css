@@ -1,97 +1,19 @@
 .navbar-property {
-    color: whitesmoke;
-    background: rgb(36, 34, 34);
-  }
-  
-  .navbar-property a {
-    color: whitesmoke;
-    text-decoration: none;
-  }
-  
-  /* burger style change */
-  .navbar-property button {
-    background: whitesmoke;
-    text-decoration: none;
-  }
-  
-  .navbar-property span {
-    background: black;
-  }
-  
-  /* search box margin top */
-  .search-box-margin {
-    margin-top: 70px;
-  }
-  
-  #jumb-prop {
-    background: rgb(36, 34, 34);
-    color: antiquewhite;
-  }
-  
-  .jumb-padding {
-    padding-top: 20px;
-  }
-  
-  /* end jumb-prop */
-  /* card margin-top */
-  .card {
-    margin-top: 50px;
-  }
-  
-  .card a {
-    text-decoration: none;
-    color: rgb(8, 8, 8);
-  }
-  
-  .pagination{
-    width: 100%;
-    text-align: center;
-  }
-  
-  
-  /* footer */
-  .marginTop {
-    margin-top: 20vh;
-    background:  linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
-    color: rgb(255, 255, 255);
-  }
-  
-  .paddingTopFromFooter {
-    padding: 6vh 0 6vh 0;
-  }
-  
-  .footerImage {
-    width: 75px;
-    height: 75px;
-  }
-  
-  .footerImageAlign {
-    text-align: center;
-  }
-  
-  .footer-link a {
-    padding: 10px;
-    text-decoration: none;
-  }
-  
-  .footer-link .svg1:hover {
-    background: #f04848;
-  }
-  
-  .footer-link .svg2:hover {
-    background: rgba(24, 24, 240, 0.897);
-  }
-  
-  .footer-link .svg3:hover {
-    background: #ffffff;
-  }
-  
-  .footer-link .svg4:hover {
-    background: linear-gradient(red, yellow, orange)
-  }
-  
-  .footer-link img {
-    width: 35px;
-    height: 35px;
-  }
-  
+  color: whitesmoke;
+  background: rgb(36, 34, 34);
+}
+
+.navbar-property a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+/* burger style change */
+.navbar-property button {
+  background: whitesmoke;
+  text-decoration: none;
+}
+
+.navbar-property span {
+  background: black;
+}

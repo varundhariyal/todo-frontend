@@ -1,90 +1,70 @@
- .navbar-property {
-   color: whitesmoke;
-   background: rgb(36, 34, 34);
- }
+/* search box margin top */
+.search-box-margin {
+  margin-top: 70px;
+}
 
- .navbar-property a {
-   color: whitesmoke;
-   text-decoration: none;
- }
+#jumb-prop {
+  background: rgb(36, 34, 34);
+  color: antiquewhite;
+}
 
- /* burger style change */
- .navbar-property button {
-   background: whitesmoke;
-   text-decoration: none;
- }
+.jumb-padding {
+  padding-top: 20px;
+}
 
- .navbar-property span {
-   background: black;
- }
+/* checkbox */
+.check {
+  background: black;
+  padding: 10px;
+}
 
- /* search box margin top */
- .search-box-margin {
-   margin-top: 70px;
- }
+/* end jumb-prop */
+.i-margin {
+  margin: 5px 5px 5px 5px;
+}
 
- #jumb-prop {
-   background: rgb(36, 34, 34);
-   color: antiquewhite;
- }
+/* footer */
+.marginTop {
+  margin-top: 20vh;
+  background: linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
+  color: rgb(255, 255, 255);
+}
 
- .jumb-padding {
-   padding-top: 20px;
- }
+.paddingTopFromFooter {
+  padding: 6vh 0 6vh 0;
+}
 
- /* checkbox */
- .check {
-   background: black;
-   padding: 10px;
- }
+.footerImage {
+  width: 75px;
+  height: 75px;
+}
 
- /* end jumb-prop */
- .i-margin {
-   margin: 5px 5px 5px 5px;
- }
+.footerImageAlign {
+  text-align: center;
+}
 
- /* footer */
- .marginTop {
-   margin-top: 20vh;
-   background: linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
-   color: rgb(255, 255, 255);
- }
+.footer-link a {
+  padding: 10px;
+  text-decoration: none;
+}
 
- .paddingTopFromFooter {
-   padding: 6vh 0 6vh 0;
- }
+.footer-link .svg1:hover {
+  background: #f04848;
+}
 
- .footerImage {
-   width: 75px;
-   height: 75px;
- }
+.footer-link .svg2:hover {
+  background: rgba(24, 24, 240, 0.897);
+}
 
- .footerImageAlign {
-   text-align: center;
- }
+.footer-link .svg3:hover {
+  background: #ffffff;
+}
 
- .footer-link a {
-   padding: 10px;
-   text-decoration: none;
- }
+.footer-link .svg4:hover {
+  background: linear-gradient(red, yellow, orange)
+}
 
- .footer-link .svg1:hover {
-   background: #f04848;
- }
-
- .footer-link .svg2:hover {
-   background: rgba(24, 24, 240, 0.897);
- }
-
- .footer-link .svg3:hover {
-   background: #ffffff;
- }
-
- .footer-link .svg4:hover {
-   background: linear-gradient(red, yellow, orange)
- }
-
- .footer-link img {
-   width: 35px;
-   height: 35px;
- }
+.footer-link img {
+  width: 35px;
+  height: 35px;
+}

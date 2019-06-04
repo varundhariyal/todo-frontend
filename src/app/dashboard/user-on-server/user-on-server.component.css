@@ -1,23 +1,3 @@
-.navbar-property {
-  color: whitesmoke;
-  background: rgb(36, 34, 34);
-}
-
-.navbar-property a {
-  color: whitesmoke;
-  text-decoration: none;
-}
-
-/* burger style change */
-.navbar-property button {
-  background: whitesmoke;
-  text-decoration: none;
-}
-
-.navbar-property span {
-  background: black;
-}
-
 .container-top {
   margin-top: 100px;
 }
@@ -31,13 +11,13 @@
 }
 
 .badge {
-  padding: 10px!important;
+  padding: 10px !important;
 }
 
 /* footer */
 .marginTop {
   margin-top: 20vh;
-  background:  linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
+  background: linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
   color: rgb(255, 255, 255);
 }
 

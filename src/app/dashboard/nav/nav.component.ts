@@ -16,17 +16,19 @@ import { Subscription } from 'rxjs';
 export class NavComponent implements OnInit, OnDestroy {
   userId: string
   authToken: string
-  verifyUser:Subscription
-  multitoDo:Subscription
-  friendNotification:Subscription
-  friendAcceptNotification:Subscription
+  verifyUser: Subscription
+  multitoDo: Subscription //subscvribing to observable
+  friendNotification: Subscription
+  friendAcceptNotification: Subscription
   constructor(private socketService: SocketService, private toastr: ToastrService,
     private userService: UserHandleService, private router: Router, private cookieService: CookieService) { }
+
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     console.log('I am groot')
-    this.verifyUser.unsubscribe();
+    this.verifyUser.unsubscribe(); //unsubscribe observable
     this.multitoDo.unsubscribe();
     this.friendNotification.unsubscribe();
     this.friendAcceptNotification.unsubscribe();
@@ -52,14 +54,16 @@ export class NavComponent implements OnInit, OnDestroy {
     )
   }
 
-  //method to get friend request received notification
+  //method to get notifications
   public getNotifications = () => {
+    //socket to emit friend request send message
     this.friendNotification = this.socketService.friendNotification(this.userId).subscribe(
       response => {
         console.log(response)
         this.toastr.success(response.message)
       }
     )
+    //socket to emit multi-todo create/edited messages
     this.multitoDo = this.socketService.multiToDoCreate(this.userId).subscribe(
       response => {
         console.log(response)
@@ -91,7 +95,6 @@ export class NavComponent implements OnInit, OnDestroy {
 
         if (response.status === 200 || response.status === 404) {
           this.cookieService.removeAll();
-
           this.router.navigate(['/']);
           this.toastr.success('You are logged out!')
           this.socketService.disconnectSocket()

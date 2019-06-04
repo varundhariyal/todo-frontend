@@ -1,27 +1,6 @@
-<!-- <nav class="fixed-top navbar navbar-expand-lg navbar-property">
-  <a class="navbar-brand" [routerLink]="[ '/about']">LiveTo-Do</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="[ '/dash', userId ]">SingleUser</a>
-      </li>
-      <li class="nav-item">
-        <a class="text-danger nav-link" [routerLink]="[ '/multiview' ]">MultiUser</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link btn btn-danger" (click)="logout()">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav> -->
+<!-- navbar -->
 <app-nav></app-nav>
+<!-- navbar end -->
 <div class="jumbotron jumbotron-fluid" id="jumb-prop">
   <div class="container jumb-padding">
     <h1 class="display-4">Hello {{myName}}</h1>
@@ -75,15 +54,15 @@
       </div>
     </div>
   </div>
-  
+
 </div>
 
 <div class="row">
-    <div class="col-xs-12 col-12">
-      <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
-        (pageChanged)="pageChanged($event)"></pagination>
-    </div>
+  <div class="col-xs-12 col-12">
+    <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
+      (pageChanged)="pageChanged($event)"></pagination>
   </div>
+</div>
 <!-- footer -->
 <div>
   <footer class="marginTop  text-center">

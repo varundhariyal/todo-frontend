@@ -111,32 +111,4 @@ export class DashHomeComponent implements OnInit {
     )
   }  //end deleteList
 
-  //logout method
-  public logout = () => {
-    let data = {
-      userId: this.userId
-    }
-    this.todoService.logout(data).subscribe(
-      response => {
-        console.log(response)
-
-        if (response.status === 200 || response.status === 404) {
-          Cookie.deleteAll();
-  
-          this.router.navigate(['/']);
-          this.toastr.success('You are logged out!')
-        }
-        else if (response.status == 500) {
-          this.router.navigate(['/servererror'])
-        }
-      },
-      err => {
-        this.toastr.error(err.message)
-        if (err.status == 500) {
-          this.router.navigate(['/servererror'])
-        }
-      }
-    )
-  }
-
 }

@@ -17,10 +17,12 @@ export class SignupComponent implements OnInit {
   MobileNumber: number
   CountryCode = '';
   Password: string
-  PossibleCode =CountryCo['default']
+  countries = [];
+  PossibleCode = CountryCo['default']
   constructor(private UserService: UserHandleService, private route: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.code()
     console.log(CountryCo["default"]);
     var options = {
       strings: ["Cook Dinner", "Call Mom", "Get Groceries", "Pay Bill", "Attend Meeting"],
@@ -45,12 +47,22 @@ export class SignupComponent implements OnInit {
     var typed = new Typed(".typed", options);
   }
 
-//method to get country with code
-public code=()=>{
-  for(let x in CountryCo['default']){
-   this.CountryCode=x
+  //method to get country with code
+  public code = () => {
+    let coutryData = CountryCo;
+    let obj = coutryData["default"];
+    var result = Object.keys(obj).map(function (key) {
+      return { code: key, name: obj[key] };
+    });
+    this.countries = result;
+
+    // let phoneData = Phone;
+    // obj = phoneData["default"];
+    // result = Object.keys(obj).map(function (key) {
+    //   return { code: key, name: obj[key] };
+    // });
+    // this.countryCode = result;
   }
-}
 
   //method for signup
   signup = () => {
