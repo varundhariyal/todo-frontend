@@ -118,15 +118,14 @@ export class ListviewComponent implements OnInit {
 
   //method to add subitem/childitem in list
 
-  addChildItem = (itemId: any) => { //passing itemId from argumaent in html view
-    if (this.subItemName == '' || this.subItemName == null || this.subItemName == undefined) {
+  addChildItem = (itemId: any, title) => { //passing itemId from argumaent in html view
+
+    if (title.value == '' || title.value == null || title.value == undefined) {
       this.toastr.info('Enter An Todo Sub/Child Item')
     }
     else {
-      let data = {
-        subItemName: this.subItemName
-      }
-      this.todoservice.addChildItem(this.listId, itemId, data).subscribe(
+      
+      this.todoservice.addChildItem(this.listId, itemId, title.value).subscribe(
         response => {
           if (response.status == 200) {
             console.log(response)

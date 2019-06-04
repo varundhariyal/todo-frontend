@@ -23,11 +23,11 @@ export class SocketService {
 
   //events to be listened
 
-  public verifyUser = () => {
+  public verifyUser = (): Observable<any> => {
     // connection is being created.
     //handshake
     this.socket = io(this.url)
-    this.socket.removeAllListeners(['verifyUser']);
+    // this.socket.removeAllListeners(['verifyUser']);
 
     return Observable.create((observer) => {
       this.socket.on('verifyUser', (data) => {
@@ -39,7 +39,7 @@ export class SocketService {
 
   //socket for friend request sent notification
   public friendNotification = (userId) => {
-    this.socket.removeAllListeners([userId]);
+    // this.socket.removeAllListeners([userId]);
 
     return Observable.create((observer) => {
       this.socket.on(userId, (notification) => {
@@ -50,7 +50,7 @@ export class SocketService {
 
   //socket for friend request accepted notification
   public friendAcceptNotification = (userId) => {
-    this.socket.removeAllListeners(['fRAccept'+userId])
+    // this.socket.removeAllListeners(['fRAccept'+userId])
     return Observable.create((observer) => {
       this.socket.on('fRAccept'+userId, (notification) => {
         observer.next(notification)
@@ -60,7 +60,7 @@ export class SocketService {
 
   //socket for friend request accepted notification
   public multiToDoCreate = (userId) => {
-    this.socket.removeAllListeners(['create'+userId]);
+    // this.socket.removeAllListeners(['create'+userId]);
     return Observable.create((observer) => {
       this.socket.on('create' + userId, (notification) => {
         observer.next(notification)

@@ -1,23 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { SocketService } from 'src/app/socket.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserHandleService } from 'src/app/user-handle.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
-  providers:[]
+  providers: []
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   userId: string
   authToken: string
+  verifyUser:Subscription
+  multitoDo:Subscription
+  friendNotification:Subscription
+  friendAcceptNotification:Subscription
   constructor(private socketService: SocketService, private toastr: ToastrService,
-    private userService: UserHandleService,private router:Router,private cookieService:CookieService) { }
-
+    private userService: UserHandleService, private router: Router, private cookieService: CookieService) { }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    console.log('I am groot')
+    this.verifyUser.unsubscribe();
+    this.multitoDo.unsubscribe();
+    this.friendNotification.unsubscribe();
+    this.friendAcceptNotification.unsubscribe();
+  }
   ngOnInit() {
     console.log('I am in nav');
     this.userId = Cookie.get('userId')
@@ -25,13 +38,13 @@ export class NavComponent implements OnInit {
     console.log(this.authToken)
     if (this.authToken !== '' || this.authToken !== null || this.authToken !== undefined) {
       this.verifyUserConfirmation();
-      this.getNotifications()
-      this.getFriendAcceptNotification
+      this.getNotifications();
+      this.getFriendAcceptNotification();
     }
   }
   public verifyUserConfirmation = () => {
 
-    this.socketService.verifyUser().subscribe(
+    this.verifyUser = this.socketService.verifyUser().subscribe(
       response => {
         console.log('Hey I am inside Set user');
         this.socketService.setUser(this.authToken)
@@ -41,13 +54,13 @@ export class NavComponent implements OnInit {
 
   //method to get friend request received notification
   public getNotifications = () => {
-    this.socketService.friendNotification(this.userId).subscribe(
+    this.friendNotification = this.socketService.friendNotification(this.userId).subscribe(
       response => {
         console.log(response)
         this.toastr.success(response.message)
       }
     )
-    this.socketService.multiToDoCreate(this.userId).subscribe(
+    this.multitoDo = this.socketService.multiToDoCreate(this.userId).subscribe(
       response => {
         console.log(response)
         this.toastr.success(response)
@@ -57,12 +70,12 @@ export class NavComponent implements OnInit {
 
   //method to get friend request accepted notification
   public getFriendAcceptNotification = () => {
-    this.socketService.friendAcceptNotification(this.userId).subscribe(
+    this.friendAcceptNotification = this.socketService.friendAcceptNotification(this.userId).subscribe(
       response => {
         console.log(response)
         this.toastr.success(response.message)
       },
-      err=>{
+      err => {
         this.toastr.error(err)
       }
     )
@@ -78,7 +91,7 @@ export class NavComponent implements OnInit {
 
         if (response.status === 200 || response.status === 404) {
           this.cookieService.removeAll();
-  
+
           this.router.navigate(['/']);
           this.toastr.success('You are logged out!')
           this.socketService.disconnectSocket()

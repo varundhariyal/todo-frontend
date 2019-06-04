@@ -14,7 +14,7 @@ import { SocketService } from 'src/app/socket.service';
 export class MultiviewComponent implements OnInit {
   currentPage = 1;
   page: number;
-  itmesPerPage: 5
+  itemsPerPage:number = 5
   totalItems:number
 
   pageChanged(event: any): void {
@@ -65,6 +65,7 @@ export class MultiviewComponent implements OnInit {
           console.log(response)
           this.todoData = response.data.multiTodoData
           this.totalItems=response.data.totalItems
+          console.log(this.totalItems)
         }
         if (response.status == 500) {
           this.router.navigate(['/servererror'])
@@ -82,11 +83,12 @@ export class MultiviewComponent implements OnInit {
       this.toastr.warning('Please enter todo title')
     }
     else {
+      const remarks= `${this.userName} created a todo ${this.title}`;
       let data = {
         title: this.title,
         isCompleted: false,
         createdBy: this.userId,
-        remarks: `${this.userName} created a todo ${this.title}`
+        remarks: remarks
       }
       this.multiTodoService.addTodoItem(data).subscribe(
         response => {
@@ -96,8 +98,7 @@ export class MultiviewComponent implements OnInit {
             
             //socket call
             const obj={
-              userName:this.userName,
-              title:this.title,
+              message: remarks,
               senderId:this.userId
             }
             this.socketService.sendMultiTodoInfo(obj)
@@ -129,20 +130,31 @@ export class MultiviewComponent implements OnInit {
       this.toastr.warning('Please enter a todo title')
     }
     else {
+      const remarks = `${this.userName} changed the title from ${title} to ${this.titleEdited}`;
       let data = {
         multiTodoId: multiTodoId,
         title: this.titleEdited,
         editedBy: this.userId,
-        remarks: `${this.userName} changed the title from ${title} to ${this.titleEdited}`
+        remarks: remarks
       }
       this.multiTodoService.editMultiTodo(data).subscribe(
         response => {
-          console.log(response)
-          this.edited = "";
-          this.titleEdited = "";
-          this.showElement()
-          this.getMultiTodo()
-          if (response.status == 500) {
+          if(response.status === 200){
+
+            console.log(response)
+            this.edited = "";
+            this.titleEdited = "";
+            this.showElement()
+            this.getMultiTodo()
+
+            //socket call
+            const obj={
+              message: remarks,
+              senderId:this.userId
+            }
+            this.socketService.sendMultiTodoInfo(obj)
+          }
+          else if (response.status == 500) {
             this.router.navigate(['/servererror'])
           }
         }

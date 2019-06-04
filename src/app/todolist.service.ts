@@ -36,7 +36,7 @@ export class TodolistService {
   public addChildItem(listId, itemId, data): Observable<any> {
     const params = new HttpParams()
       .set('itemId', data.itemId)
-      .set('subItemName', data.subItemName)
+      .set('subItemName', data)
     return this.http.post(`${this.url}addchilditem/${listId}/${itemId}`, params)
   }
 

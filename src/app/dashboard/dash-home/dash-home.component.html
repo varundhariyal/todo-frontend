@@ -12,8 +12,8 @@
       <input id="title" #title='ngModel' [(ngModel)]="listTitle" class="form-control mr-sm-2" type="text"
         placeholder="Enter Name Of ToDo List" required>
       <br>
-      <button data-toggle="tooltip" data-placement="bottom" title="Create" class="btn btn-outline-success my-2 my-sm-0" (click)="createNewEmptyList()" type="button"><i
-          class="fas fa-plus-circle">Create a TODO List</i></button>
+      <button data-toggle="tooltip" data-placement="bottom" title="Create" class="btn btn-outline-success my-2 my-sm-0"
+        (click)="createNewEmptyList()" type="button"><i class="fas fa-plus-circle">Create a TODO List</i></button>
     </div>
   </div>
 </div>
@@ -30,7 +30,8 @@
           </div>
         </a>
         <div class="text-center">
-          <button data-toggle="tooltip" data-placement="bottom" title="Delete" class="btn btn-outline-danger" (click)="deleteList(list.listId)">
+          <button data-toggle="tooltip" data-placement="bottom" title="Delete" class="btn btn-outline-danger"
+            (click)="deleteList(list.listId)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
@@ -42,7 +43,6 @@
     <div class="col-md-6 col-sm-12 col-xs-12">
       <pagination [totalItems]="totalItems" [itemsPerPage]="itmesPerPage" [(ngModel)]="currentPage"
         (pageChanged)="pageChanged($event)"></pagination>
-
     </div>
   </div>
 </div>

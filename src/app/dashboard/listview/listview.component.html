@@ -58,7 +58,7 @@
       </div>
 
       <div>
-        <div [ngStyle]="{'text-decoration':list.isCompleted == true ? 'line-through' : 'none'}">
+        <div [ngStyle]="{'text-decoration':list.isCompleted ? 'line-through' : 'none'}">
         <h3 *ngIf="edited!==list.itemId">{{list.itemName}}</h3>
         </div>
         <div [hidden]="showMe" *ngIf="edited=== list.itemId">
@@ -88,12 +88,12 @@
           <span class="badge badge-secondary badge-pill">{{childList.createdOn|date}}</span>
         </li>
       </ul>
-      <div class="input-group mb-3">
+      <div *ngIf="!list.isCompleted" class="input-group mb-3">
         <div class="input-group-prepend">
-          <button data-toggle="tooltip" data-placement="bottom" title="Add Sub Item" (click)="addChildItem(list.itemId)" class="btn btn-outline-success" type="button"
+          <button data-toggle="tooltip" data-placement="bottom" title="Add Sub Item" (click)="addChildItem(list.itemId, subToDo)" class="btn btn-outline-success" type="button"
             id="button-addon1"><i class="fas fa-plus-circle">ADD SUB-TODO</i></button>
         </div>
-        <input [(ngModel)]="subItemName" type="text" class="form-control" placeholder="add a sub todo.."
+        <input type="text" class="form-control" #subToDo placeholder="add a sub todo.."
           aria-describedby="button-addon1">
       </div>
     </div>

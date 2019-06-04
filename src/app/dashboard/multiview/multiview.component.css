@@ -39,7 +39,7 @@
 /* footer */
 .marginTop {
   margin-top: 20vh;
-  background:  linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
+  background: linear-gradient(rgb(34, 33, 33), rgb(199, 173, 173));
   color: rgb(255, 255, 255);
 }
 
@@ -80,8 +80,4 @@
 .footer-link img {
   width: 35px;
   height: 35px;
-}
-
-.pagination{
-  display: flex;
 }

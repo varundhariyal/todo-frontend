@@ -35,7 +35,8 @@
       <input #Title='ngModel' [(ngModel)]="title" class="form-control mr-sm-2" type="text" placeholder="Add a todo"
         required>
       <br>
-      <button data-toggle="tooltip" data-placement="bottom" title="Add TODO" class="btn btn-outline-success my-2 my-sm-0" (click)="addTodoItem()" type="button"><i
+      <button data-toggle="tooltip" data-placement="bottom" title="Add TODO"
+        class="btn btn-outline-success my-2 my-sm-0" (click)="addTodoItem()" type="button"><i
           class="fas fa-plus-circle">Add Todo</i></button>
     </div>
   </div>
@@ -44,24 +45,29 @@
 <div class="container">
   <div class="row justify-content-around ">
     <div class="col-12 col-md-8 text-center" *ngFor="let todo of todoData">
-      <div class="todo-card card shadow-lg p-3 mb-5 bg-white rounded card-prop" >
+      <div class="todo-card card shadow-lg p-3 mb-5 bg-white rounded card-prop">
         <div class="card-body">
           <h3 *ngIf="edited!==todo.multiTodoId">{{todo.title}}</h3>
-          <h3>Created By <span class="badge badge-info">{{todo.creatorData.FirstName}} {{todo.creatorData.LastName}}</span></h3>
+          <h3>Created By <span class="badge badge-info">{{todo.creatorData.FirstName}}
+              {{todo.creatorData.LastName}}</span></h3>
           <div *ngIf="edited==todo.multiTodoId" [hidden]="showMe">
             <input [(ngModel)]="titleEdited" type="text">
-            <button data-toggle="tooltip" data-placement="bottom" title="Update" (click)="editMultiTodo(todo.multiTodoId,todo.title)" class="i-margin btn btn-outline-primary"><i
+            <button data-toggle="tooltip" data-placement="bottom" title="Update"
+              (click)="editMultiTodo(todo.multiTodoId,todo.title)" class="i-margin btn btn-outline-primary"><i
                 class="fas fa-plus-circle">Update</i></button>
-                <button data-toggle="tooltip" data-placement="bottom" title="Cancel" (click)="showElement()" class="i-margin btn btn-outline-primary">
-                    <i class="fas fa-times-circle"></i></button>
+            <button data-toggle="tooltip" data-placement="bottom" title="Cancel" (click)="showElement()"
+              class="i-margin btn btn-outline-primary">
+              <i class="fas fa-times-circle"></i></button>
           </div>
 
           <!-- supplying showme=true for div hide/show using hidden property-->
-          <button data-toggle="tooltip" data-placement="bottom" title="Edit" (click)="handleView(todo.multiTodoId)" class="btn btn-outline-warning i-margin"> <i 
-              class="i-margin far fa-edit"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Delete" (click)="deleteMultiTodo(todo.multiTodoId)" class="btn btn-outline-danger i-margin"> <i 
+          <button data-toggle="tooltip" data-placement="bottom" title="Edit" (click)="handleView(todo.multiTodoId)"
+            class="btn btn-outline-warning i-margin"> <i class="i-margin far fa-edit"></i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Delete"
+            (click)="deleteMultiTodo(todo.multiTodoId)" class="btn btn-outline-danger i-margin"> <i
               class="i-margin  far fa-trash-alt"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="View History" [routerLink]="[ '/multiview/history', todo.multiTodoId ]" class="btn btn-outline-primary i-margin"><i
+          <button data-toggle="tooltip" data-placement="bottom" title="View History"
+            [routerLink]="[ '/multiview/history', todo.multiTodoId ]" class="btn btn-outline-primary i-margin"><i
               class="i-margin fas fa-history"></i></button>
           <br>
           <span class="badge badge-primary badge-pill">{{todo.createdOn |date}}</span>
@@ -69,18 +75,15 @@
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xs-12 col-12">
-      <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
-    </div>
-  </div>
-  <pre class="card card-block card-header mb-3">
-    Page changed to: {{page}}
-  </pre>
+  
 </div>
 
+<div class="row">
+    <div class="col-xs-12 col-12">
+      <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage"
+        (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+  </div>
 <!-- footer -->
 <div>
   <footer class="marginTop  text-center">
@@ -113,4 +116,3 @@
     </div>
   </footer>
 </div>
-
