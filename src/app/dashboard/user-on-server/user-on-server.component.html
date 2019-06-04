@@ -1,6 +1,6 @@
 <!-- navbar -->
 <nav class="fixed-top navbar navbar-expand-lg navbar-property">
-  <a class="navbar-brand" [routerLink]="[ '/dash']">LiveTo-Do</a>
+  <a class="navbar-brand" [routerLink]="[ '/about']">LiveTo-Do</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,7 @@
         <div class="card-body">
           <h5 class="card-title">{{user.FirstName}} {{user.LastName}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">Joined-{{user.CreatedOn|date}}</h6>
-          <button (click)="sendRequest(user.userId)" class="btn btn-outline-success"><i
+          <button data-toggle="tooltip" data-placement="bottom" title="Send Request" (click)="sendRequest(user.userId)" class="btn btn-outline-success"><i
               class="fas fa-user-friends">Send</i></button>
         </div>
       </div>
@@ -56,9 +56,9 @@
         <div class="card-body">
           <h5 class="card-title">{{name.FirstName}} {{name.LastName}}</h5>
           <h6 class="card-subtitle mb-2 text-muted"></h6>
-          <button (click)="acceptFriendRequest(name)" class="btn btn-outline-success"><i
+          <button data-toggle="tooltip" data-placement="bottom" title="Accept" (click)="acceptFriendRequest(name)" class="btn btn-outline-success"><i
               class="fas fa-check-circle">Accept</i></button>
-          <button (click)="deleteFriendRequest(name.userId)" class="btn btn-outline-danger"><i
+          <button data-toggle="tooltip" data-placement="bottom" title="Decline" (click)="deleteFriendRequest(name.userId)" class="btn btn-outline-danger"><i
               class="fas fa-times-circle">Decline</i></button>
         </div>
       </div>
@@ -72,9 +72,9 @@
           <h5 class="card-title">No friends to show</h5>
         </div>
       </div>
-      <div *ngIf="friendListArray.length>0" class="card" style="width: 18rem;">
-        <div *ngFor="let friend of friendListArray" class="card-body">
-          <h5 class="card-title">{{friend.FirstName}} {{friend.LastName}}</h5>
+      <div *ngIf="friendListArray.length>0">
+        <div class="card" style="width: 18rem;" *ngFor="let friend of friendListArray" >
+          <div class="card-title p-4">{{friend.FirstName}} {{friend.LastName}}</div>
         </div>
       </div>
     </div>

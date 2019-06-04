@@ -3,6 +3,7 @@ import { MultiTodoService } from 'src/app/multi-todo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { SocketService } from 'src/app/socket.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class MultiviewComponent implements OnInit {
   currentPage = 1;
   page: number;
   itmesPerPage: 5
+  totalItems:number
 
   pageChanged(event: any): void {
     this.page = event.page;
@@ -30,7 +32,7 @@ export class MultiviewComponent implements OnInit {
   todoData: any = [] //array containing todo's info
   todoTransactionData: any = []
   skip: number = 0
-  constructor(private multiTodoService: MultiTodoService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
+  constructor(private multiTodoService: MultiTodoService,private socketService:SocketService, private toastr: ToastrService, private router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.userId = Cookie.get('userId')
@@ -44,6 +46,8 @@ export class MultiviewComponent implements OnInit {
   }
   //method to show a div
   showElement() {
+    this.edited = "";
+
     this.showMe = true;
   }
 
@@ -59,7 +63,8 @@ export class MultiviewComponent implements OnInit {
         console.log(skip)
         if (response !== null || response.status == 200) {
           console.log(response)
-          this.todoData = response.data
+          this.todoData = response.data.multiTodoData
+          this.totalItems=response.data.totalItems
         }
         if (response.status == 500) {
           this.router.navigate(['/servererror'])
@@ -88,6 +93,15 @@ export class MultiviewComponent implements OnInit {
           if (response !== null || response.status == 200) {
             this.toastr.success('Todo created successfully')
             this.getMultiTodo()
+            
+            //socket call
+            const obj={
+              userName:this.userName,
+              title:this.title,
+              senderId:this.userId
+            }
+            this.socketService.sendMultiTodoInfo(obj)
+           
           }
           if (response.status == 500) {
             this.router.navigate(['/servererror'])
@@ -170,6 +184,7 @@ export class MultiviewComponent implements OnInit {
     }
     this.multiTodoService.logout(data).subscribe(
       response => {
+        console.log(response)
         if (response.status === 200) {
           console.log("logout called")
           Cookie.delete('authToken');

@@ -15,14 +15,15 @@ export class AppComponent implements OnInit {
   constructor(private socketService: SocketService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    console.log('I am called');
     this.userId = Cookie.get('userId')
     this.authToken = Cookie.get('authToken')
     console.log(this.authToken)
-    if (this.authToken !== '' || this.authToken !== null || this.authToken !== undefined) {
-      this.verifyUserConfirmation();
-      this.getFriendRequestNotification()
-      this.getFriendAcceptNotification
-    }
+    // if (this.authToken !== '' || this.authToken !== null || this.authToken !== undefined) {
+    //   this.verifyUserConfirmation();
+    //   this.getNotifications()
+    //   this.getFriendAcceptNotification
+    // }
   }
 
   //method to verify user using socket service by passing authToken
@@ -36,11 +37,17 @@ export class AppComponent implements OnInit {
   }
 
   //method to get friend request received notification
-  public getFriendRequestNotification = () => {
+  public getNotifications = () => {
     this.socketService.friendNotification(this.userId).subscribe(
       response => {
         console.log(response)
         this.toastr.success(response.message)
+      }
+    )
+    this.socketService.multiToDoCreate(this.userId).subscribe(
+      response => {
+        console.log(response)
+        this.toastr.success(response)
       }
     )
   }

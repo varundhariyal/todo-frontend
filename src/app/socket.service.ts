@@ -18,14 +18,17 @@ export class SocketService {
   private socket: any;
 
   constructor(private http: HttpClient) {
-    // connection is being created.
-    //handshake
-    this.socket = io(this.url)
+    
   }
 
   //events to be listened
 
   public verifyUser = () => {
+    // connection is being created.
+    //handshake
+    this.socket = io(this.url)
+    this.socket.removeAllListeners(['verifyUser']);
+
     return Observable.create((observer) => {
       this.socket.on('verifyUser', (data) => {
         observer.next(data)
@@ -36,6 +39,8 @@ export class SocketService {
 
   //socket for friend request sent notification
   public friendNotification = (userId) => {
+    this.socket.removeAllListeners([userId]);
+
     return Observable.create((observer) => {
       this.socket.on(userId, (notification) => {
         observer.next(notification);
@@ -43,14 +48,25 @@ export class SocketService {
     }); //end Observable
   }
 
- //socket for friend request accepted notification
- public friendAcceptNotification=(userId)=>{
-   return Observable.create((observer)=>{
-     this.socket.on(userId,(notification)=>{
-       observer.next(notification)
-     })
-   })
- }
+  //socket for friend request accepted notification
+  public friendAcceptNotification = (userId) => {
+    this.socket.removeAllListeners(['fRAccept'+userId])
+    return Observable.create((observer) => {
+      this.socket.on('fRAccept'+userId, (notification) => {
+        observer.next(notification)
+      })
+    })
+  }
+
+  //socket for friend request accepted notification
+  public multiToDoCreate = (userId) => {
+    this.socket.removeAllListeners(['create'+userId]);
+    return Observable.create((observer) => {
+      this.socket.on('create' + userId, (notification) => {
+        observer.next(notification)
+      })
+    })
+  }
 
 
   //events to be emitted
@@ -64,9 +80,19 @@ export class SocketService {
     this.socket.emit('friend-info', (senderInfo))
   }
 
-  public sendFriendAcceptInfo=(receiverInfo:any)=>{
+  public sendFriendAcceptInfo = (receiverInfo: any) => {
     console.log(receiverInfo)
-    this.socket.emit('accept-request',(receiverInfo))
+    this.socket.emit('accept-request', (receiverInfo))
   }
+
+  public sendMultiTodoInfo = (data) => {
+    this.socket.emit('multi-todo-create', (data))
+  }
+
+
+  public disconnectSocket = () => {
+    this.socket.emit('logout')
+  }
+
 
 }

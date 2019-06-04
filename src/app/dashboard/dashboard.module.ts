@@ -10,9 +10,11 @@ import { UserOnServerComponent } from './user-on-server/user-on-server.component
 import { MultiviewComponent } from './multiview/multiview.component';
 import { MultiHistoryComponent } from './multi-history/multi-history.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AboutComponent } from './about/about.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
-  declarations: [DashHomeComponent, ListviewComponent, UserOnServerComponent, MultiviewComponent, MultiHistoryComponent],
+  declarations: [DashHomeComponent, ListviewComponent, UserOnServerComponent, MultiviewComponent, MultiHistoryComponent, AboutComponent, NavComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,6 +25,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
       { path: 'multiview', component: MultiviewComponent, pathMatch: 'full' },
       { path: 'multiview/history/:multiTodoId', component: MultiHistoryComponent, pathMatch: 'full' },
       { path: 'alluser', component: UserOnServerComponent, pathMatch: 'full' },
+      { path: 'about', component: AboutComponent, pathMatch: 'full' },
     ])
   ],
   providers: [UserHandleService, TodolistService]

@@ -10,6 +10,8 @@ import { HttpClientModule } from "@angular/common/http";
 //import toastr module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+//cookie module
+import { CookieModule } from 'ngx-cookie';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { RouterModule } from '@angular/router';
 import { SignupComponent } from './user-management/signup/signup.component';
@@ -46,13 +48,18 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DashboardModule,
     AppRoutingModule,
     HttpClientModule,
+    CookieModule.forRoot(),
     PaginationModule.forRoot(),
     //loader imports
     NgxUiLoaderHttpModule,
     NgxUiLoaderRouterModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        positionClass: 'toast-bottom-right'
+      }
+    ),
     RouterModule.forRoot([
       { path: '', redirectTo: 'signup', pathMatch: 'full' },
       { path: 'signup', component: SignupComponent, pathMatch: 'full' },

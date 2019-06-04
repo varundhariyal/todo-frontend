@@ -40,12 +40,12 @@ export class DashHomeComponent implements OnInit {
     this.todoService.getListOfLoggedInUser(this.userId, skip).subscribe(
       response => {
         console.log(response)
-        if(response.data == null){
-          this.allList=''
+        if (response.data == null) {
+          this.allList = ''
         }
         if (response.data !== null) {
           this.totalItems = response.data.totalItems;
-        this.allList = response['data'].fetchedList;
+          this.allList = response['data'].fetchedList;
         }
         if (response.status === 404) {
           this.toastr.info('Currently no todo list is created')
@@ -92,7 +92,7 @@ export class DashHomeComponent implements OnInit {
   }//end createNewEmptyList
 
   //delete a list
- public deleteList = (listId: any) => {
+  public deleteList = (listId: any) => {
     this.todoService.deleteList(listId).subscribe(
       response => {
         console.log(response)
@@ -118,19 +118,15 @@ export class DashHomeComponent implements OnInit {
     }
     this.todoService.logout(data).subscribe(
       response => {
-        if (response.status === 200) {
-          console.log("logout called")
-          Cookie.delete('authToken');
+        console.log(response)
 
-          Cookie.delete('userId');
-
-          Cookie.delete('userName');
-
+        if (response.status === 200 || response.status === 404) {
+          Cookie.deleteAll();
+  
           this.router.navigate(['/']);
-
           this.toastr.success('You are logged out!')
         }
-        if (response.status == 500) {
+        else if (response.status == 500) {
           this.router.navigate(['/servererror'])
         }
       },

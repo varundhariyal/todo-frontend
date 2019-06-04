@@ -81,3 +81,7 @@
   width: 35px;
   height: 35px;
 }
+
+.pagination{
+  display: flex;
+}

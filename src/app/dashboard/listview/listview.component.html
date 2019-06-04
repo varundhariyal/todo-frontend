@@ -1,6 +1,6 @@
 <!-- navbar -->
 <nav class="fixed-top navbar navbar-expand-lg navbar-property">
-  <a class="navbar-brand" [routerLink]="[ '/dash']">LiveTo-Do</a>
+  <a class="navbar-brand" [routerLink]="[ '/about']">LiveTo-Do</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
       <!-- todo list create input -->
       <input [(ngModel)]="itemName" type="text" class="form-control text-center" placeholder="Add a todo...">
       <br>
-      <button (click)="addItem()" class="btn btn-outline-success text-center"><i
+      <button data-toggle="tooltip" data-placement="bottom" title="Add Item" (click)="addItem()" class="btn btn-outline-success text-center"><i
           class="fas fa-plus-circle">ADD</i></button>
     </div>
   </div>
@@ -49,10 +49,10 @@
   <div *ngFor="let list of myItemList" class="row">
     <div class="col shadow p-3 mb-5 bg-white rounded">
       <!-- checkbox -->
-      <div *ngIf="list.isCompleted===true" class="input-group input-group-lg">
+      <div *ngIf="list.isCompleted==false" class="input-group input-group-lg">
         <div>
-          <div class="input-group-text check">
-            <input  [disabled]='list.isCompleted==true' (click)="itemCompleted(list.itemId)" class="" type="checkbox">
+          <div data-toggle="tooltip" data-placement="bottom" title="Mark Done" class="input-group-text check">
+            <input (click)="itemCompleted(list.itemId)" class="" type="checkbox">
           </div>
         </div>
       </div>
@@ -63,16 +63,16 @@
         </div>
         <div [hidden]="showMe" *ngIf="edited=== list.itemId">
           <input [(ngModel)]="editItemName" type="text">
-          <button (click)="editItem(list.itemId)" class="i-margin btn btn-outline-primary"><i
+          <button data-toggle="tooltip" data-placement="bottom" title="Edit" (click)="editItem(list.itemId)" class="i-margin btn btn-outline-primary"><i
               class="fas fa-plus-circle">Edit
               Todo</i></button>
-          <button (click)="showElement(list.ItemId)" class="i-margin btn btn-outline-primary">
+          <button data-toggle="tooltip" data-placement="bottom" title="Cancel" (click)="showElement(list.ItemId)" class="i-margin btn btn-outline-primary">
             <i class="fas fa-times-circle"></i></button>
         </div>
 
         <!-- supplying showme=true for div hide/show using hidden property-->
-        <i (click)="handleView(list.itemId)" class="i-margin btn btn-outline-warning far fa-edit"></i>
-        <i (click)="deleteItem(list.itemId)" class="i-margin btn btn-outline-danger far fa-trash-alt"></i>
+        <i data-toggle="tooltip" data-placement="bottom" title="Edit" (click)="handleView(list.itemId)" class="i-margin btn btn-outline-warning far fa-edit"></i>
+        <i data-toggle="tooltip" data-placement="bottom" title="Delete" (click)="deleteItem(list.itemId)" class="i-margin btn btn-outline-danger far fa-trash-alt"></i>
       </div>
       <span class="badge badge-primary badge-pill">{{list.createdOn |date}}</span>
       <br>
@@ -80,7 +80,7 @@
       <ul class="text-left list-group list-group-flush" *ngFor="let childList of list.children">
         <li class="list-group-item">
           <p class="lead">{{childList.subItemName}}
-            <button (click)="deleteSubItem(list.itemId,childList.subItemId)" type="button" class="close"
+            <button data-toggle="tooltip" data-placement="bottom" title="Delete" (click)="deleteSubItem(list.itemId,childList.subItemId)" type="button" class="close"
               aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -90,8 +90,8 @@
       </ul>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <button (click)="addChildItem(list.itemId)" class="btn btn-outline-success" type="button"
-            id="button-addon1"><i class="fas fa-plus-circle">ADD SUBToDo</i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Add Sub Item" (click)="addChildItem(list.itemId)" class="btn btn-outline-success" type="button"
+            id="button-addon1"><i class="fas fa-plus-circle">ADD SUB-TODO</i></button>
         </div>
         <input [(ngModel)]="subItemName" type="text" class="form-control" placeholder="add a sub todo.."
           aria-describedby="button-addon1">

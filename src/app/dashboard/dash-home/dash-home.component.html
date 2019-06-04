@@ -1,26 +1,4 @@
-<nav class="fixed-top navbar navbar-expand-lg navbar-property">
-  <a class="navbar-brand" [routerLink]="[ '/dash']">LiveTo-Do</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link text-danger" [routerLink]="[ '/dash',userId]">SingleUser</a>
-          </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="[ '/multiview']">MultiUser</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="[ '/alluser' ]">FriendZone</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link btn btn-danger" (click)="logout()">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<app-nav></app-nav>
 <div class="jumbotron jumbotron-fluid" id="jumb-prop">
   <div class="container jumb-padding">
     <h1 class="display-4">Hello {{myName}}</h1>
@@ -34,8 +12,8 @@
       <input id="title" #title='ngModel' [(ngModel)]="listTitle" class="form-control mr-sm-2" type="text"
         placeholder="Enter Name Of ToDo List" required>
       <br>
-      <button class="btn btn-outline-success my-2 my-sm-0" (click)="createNewEmptyList()" type="button"><i
-          class="fas fa-plus-circle">Create a ToDO List</i></button>
+      <button data-toggle="tooltip" data-placement="bottom" title="Create" class="btn btn-outline-success my-2 my-sm-0" (click)="createNewEmptyList()" type="button"><i
+          class="fas fa-plus-circle">Create a TODO List</i></button>
     </div>
   </div>
 </div>
@@ -52,7 +30,7 @@
           </div>
         </a>
         <div class="text-center">
-          <button class="btn btn-outline-danger" (click)="deleteList(list.listId)">
+          <button data-toggle="tooltip" data-placement="bottom" title="Delete" class="btn btn-outline-danger" (click)="deleteList(list.listId)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
