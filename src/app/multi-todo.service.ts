@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MultiTodoService {
-  private url = environment+`multitodo/`
+  private url = environment.baseUrl+'multitodo/'
   constructor(private http: HttpClient) { }
 
   //method to add todo item (multi todo)
@@ -33,6 +33,7 @@ export class MultiTodoService {
 
   //method to get all multi todo
   public getMultiTodo(data,skip): Observable<any> {
+    console.log(`${this.url}getAllMultiTodo?userId=${data}&skip=${skip}`)
     return this.http.get(`${this.url}getAllMultiTodo?userId=${data}&skip=${skip}`)
   }
 
